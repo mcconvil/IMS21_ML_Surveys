@@ -1,4 +1,4 @@
-name: "my-website"
+name: "ML Surveys Workshop"
 output_dir: docs
 navbar:
   title: "Machine Learning in Survey Estimation Workshop"
