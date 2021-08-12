@@ -1,0 +1,7 @@
+name: "my-website"
+output_dir: docs
+navbar:
+  title: "Machine Learning in Survey Estimation Workshop"
+  left:
+    - text: "Home"
+      href: index.html
