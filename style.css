@@ -1,0 +1,155 @@
+/* Playing with CSS options */
+
+   /* TOC links */
+
+.list-group-item {
+    color: #8C2318;
+    font-size: 16px;
+}
+
+
+.list-group-item.active {
+    color: black;
+    background-color: white;
+    border: none;
+}
+
+.list-group-item:hover, 
+.list-group-item.active:hover {
+    color: black;
+    background-color: white;
+}
+
+/* links */
+a { 
+  color: #D64A4A;
+}
+
+a:hover {
+ color: #8C2318; /* darker color when hovering */
+}
+
+
+/*----------------ADDING WHITE SPACE-------------*/
+
+.title {
+  margin-top: 1em !important;
+  margin-bottom: 0.1em;
+}
+
+.section h1,
+.section h2, 
+.section h3, 
+.section h4, 
+.section h5 { 
+  padding-top: 4.5em !important; /*adding so much padding because theme adds a margin-top: -65px by default */
+  margin-bottom: 0.75em;
+}
+
+
+/*----------------NAVBAR ---------------*/
+.navbar-default {
+    background-color: #607873;
+}
+
+.navbar-default .navbar-nav>.open>a, 
+.navbar-default .navbar-nav>.active>a, 
+a.dropdown-toggle:hover {
+  background-color: #3C4E4A !important;
+}
+
+/* Dropdown menu color */
+.navbar-default .dropdown-menu {
+  background-color: #607873;
+}
+
+/* Dropdown menu hover color */
+  .navbar-default .dropdown-menu>li>a:hover {
+    background-color: #E6AC27;
+  }
+
+/* Navbar Links when hovered*/
+.navbar-default .dropdown-menu>.active>a
+.navbar-default .navbar-nav>.active>a:hover, 
+.navbar-default .navbar-nav:hover, 
+.navbar-default .navbar-nav>li>a:hover, 
+a.navbar-brand:hover {
+  color: #141c25 !important;
+  background-color: #141c25;
+}
+
+
+/* -----------HERO IMAGE AT TOP OF PAGE -----------*/
+
+.hero-image {
+    position: relative;
+    margin-bottom: 2em;
+    /* liner gradient tints the image darker for readability*/
+    background-image: linear-gradient( rgba(0,0,0,.2), rgba(0,0,0,.2) ), url(hexes.001.jpeg); 
+    height: 400px;
+    background-size: cover;
+    background-color: #141c25f2;
+    background-position: center center;
+    display: flex; /* Change to `display: none` for no hero image */
+    justify-content: center;
+    align-items: center;
+}
+
+.top-text {
+  position: relative;
+  font-size: 55px;
+  padding-bottom: 0.5em
+  text-transform: uppercase;
+  text-align: center;
+  display: block; /* Change to `display: none` for no top text */
+  color: #ffffff;
+  font-weight: bold;  
+}
+
+.bottom-text {
+  position: relative;
+  letter-spacing: 0.065em;
+  line-height: 1em;
+  font-size: 30px;
+  text-transform: uppercase;
+  text-align: center;
+  display: block; /* Change to `display: none` for no bottom text */
+  color: #ffffff80;
+  margin-bottom: 2.5rem;
+
+}
+
+
+
+
+.navybox {
+  padding: 1em;
+  background: rgba(44,62,80, 1);
+  color: white;
+  border-radius: 10px;
+}
+.center {
+  text-align: center;
+}
+
+
+.greenbox {
+  padding: 1em;
+  background: rgba(24, 188, 156, 1);
+  color: white;
+  border-radius: 10px;
+}
+.center {
+  text-align: center;
+}
+
+
+.orangebox {
+  padding: 1em;
+  background: rgba(243,156,18, 1);
+  color: white;
+  border-radius: 10px;
+}
+.center {
+  text-align: center;
+}

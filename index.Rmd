@@ -1,5 +1,10 @@
 ---
-title: "A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models"
+title: "&nbsp;"
+output: 
+  html_document:
+    includes: 
+      in_header: 
+      - hero-image.html
 ---
 
 

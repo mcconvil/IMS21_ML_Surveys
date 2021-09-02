@@ -1,7 +1,19 @@
 name: "ML Surveys Workshop"
-output_dir: docs
+output_dir: "."
 navbar:
   title: "Machine Learning in Survey Estimation Workshop"
-  left:
-    - text: "Home"
+  right:
+    - text: "Homepage"
       href: index.html
+      icon: fa-home
+    - text: "Slides"
+      icon: fa-area-chart
+      menu:
+        - text: "Motivation"
+          href: motivation.html
+  type: default       
+output:
+  html_document:
+    css: style.css  
+    theme: united
+    highlight: tango
