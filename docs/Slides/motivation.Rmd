@@ -1,0 +1,85 @@
+---
+title: Motivation
+header-includes:
+   - \usepackage{xcolor}
+output:
+  xaringan::moon_reader:
+    css: ["default", "cssSlides/styling.css", "cssSlides/fonts.css"]
+    lib_dir: libsSlides
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false      
+    seal: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, 
+                      warning = FALSE, fig.width = 6,
+                      fig.height = 4,
+                      fig.retina = 3)
+
+options(digits=2, scipen = 3)
+
+# Fix how htmlwidgets are rendered 
+# https://stackoverflow.com/questions/65766516/xaringan-presentation-not-displaying-html-widgets-even-when-knitting-provided-t
+options(htmltools.preserve.raw = FALSE)
+library(knitr)
+options(knitr.table.format = "html")
+library(tidyverse)
+```
+
+class: center, middle
+background-image: url("img/olena-sergienko-3BlVILvh9hM-unsplash.jpg")
+background-position: left
+background-size: contain
+background-color: #e9ecef
+
+.pull-right[
+
+## Motivating Case Studies
+
+
+#### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
+
+#### 2021 International Methodology Symposium
+
+#### Kelly McConville
+
+#### October 14, 2021
+
+]
+
+---
+
+class: center, middle
+background-image: url("img/intro.001.jpeg")
+background-size: contain
+
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+
+# Please introduce yourself in the chat!
+
+--
+
+### Give your name, where you work, and your current location!
+
+---
+
+## Roadmap of the Workshop
+
+* 10:00 - 10:30am Machine Learning in Survey Estimation
+* 10:40 - 11:30am Model-Assisted Estimation
+* 12:00 - 2:00pm Case Studies
+
+---
+
+
