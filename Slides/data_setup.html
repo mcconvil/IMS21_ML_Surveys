@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Model Assisted Estimation</title>
+    <meta charset="utf-8" />
+    <script src="libsSlides/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="cssSlides/styling.css" type="text/css" />
+    <link rel="stylesheet" href="cssSlides/fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: center, middle, hide_logo
+background-image: url("img/daggett6.001.jpeg")
+background-position: left
+background-size: contain
+background-color: #e9ecef
+
+
+
+.pull-right[
+
+## Model Assisted Estimation
+
+
+#### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
+
+#### 2021 International Methodology Symposium
+
+#### Kelly McConville
+
+#### October 14, 2021
+
+]
+
+
+---
+
+class: center
+
+### Model-Assisted Survey Estimation
+
+--
+
+#### **Goal**: Estimate finite population quantities, such as means and totals.
+
+--
+
+#### Data Needed:
+
+
+
+&lt;img src="img/data_needs2.004.jpeg" width="1402" /&gt;
+
+---
+
+class: center
+
+### Estimation Set-up
+
+--
+
+Enumerate the finite population of interest.
+
+&lt;img src="img/enumerate.jpeg" width="1481" /&gt;
+
+`\(U = \{1, 2, \ldots, N\}\)`
+
+
+---
+
+class: center
+
+### Estimation Set-up
+
+--
+
+
+**Goal:** Estimate a population quantity, such as the total of a response variable, `\(y\)`.
+
+
+&lt;img src="img/response.jpeg" width="1482" /&gt;
+
+
+`\(t_y = \sum_{i \in U} y_i\)`
+
+
+---
+
+class: center
+
+### Estimation Set-up
+
+--
+
+
+Have auxiliary data for the entire population or summary auxiliary data.
+
+
+&lt;img src="img/aux_data.jpeg" width="1484" /&gt;
+
+
+Have `\(\{\boldsymbol{x}_i\}_{i\in U}\)` or `\(\bar{\boldsymbol{x}}_U\)`.
+
+
+---
+
+class: center
+
+### Estimation Set-up
+
+--
+
+
+Construct a sampling design.
+
+&lt;img src="img/sampling_design.jpeg" width="1491" /&gt;
+
+
+Have `\(\{\pi_i\}_{i\in U}\)` where `\(\pi_i = P(i \in s)\)`.
+
+
+---
+
+class: center
+
+### Estimation Set-up
+
+A sample is taken and you have access to the following data for estimation.
+
+&lt;img src="img/all_data.jpeg" width="1489" /&gt;
+
+One option: `\(\hat{t}_y = \sum_{i \in s} \frac{y_i}{\pi_i}\)`
+
+(Horvitz-Thompson Estimator)
+
+
+---
+
+class: center
+
+### Estimation Set-up
+
+Another option: Use the sample to **build** a model and then **predict** `\(y\)` over all the population units.
+
+&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
+
+`\(\hat{t}_y = \sum_{i \in s} y_i + \sum_{i \in U-s} \hat{m}(\boldsymbol{x_i})\)`
+
+---
+
+class: center
+
+### Estimation Set-up
+
+Estimator: `\(\hat{t}_y = \sum_{i \in s} y_i + \sum_{i \in U-s} \hat{m}(\boldsymbol{x_i})\)`
+
+&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
+
+Estimator can be rather biased when the model is misspecified.
+
+
+
+---
+
+class: center
+
+### Estimation Set-up
+
+**Another approach:** Use a bias-correction term.
+
+&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
+
+
+Model-assisted estimator: 
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+### Come back to the specifics of the estimator soon...
+
+--
+
+## But first, do we even have the necessary data?
+
+---
+
+class: center
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+&gt; **Mission**: "Make and keep current a comprehensive inventory and analysis of the present and prospective conditions of and requirements for the renewable resources of the forest and rangelands of the US."
+
+
+--
+
+Focusing on Daggett County, Utah:
+
+&lt;img src="img/data_needs2.004.jpeg" width="1402" /&gt;
+
+.pull-left[
+
+Quasi-systematic sample of ground plots
+
+]
+
+--
+
+.pull-right[
+
+**Many** layers of remotely sensed data!
+
+]
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+.pull-left[
+
+
+
+Maintain many different surveys:
+
+* Job Openings and Labor Turnover Survey
+* Occupational Employment and Wage Statistics
+
+
+
+
+]
+
+--
+
+.pull-right[
+
+Quarterly Census of Employment and Wages:
+
+* Size class
+
+* Geographic information
+
+* Industry type
+
+* Whether or not its a multi-establishment firm
+
+]
+
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+
+## In your breakout rooms, each person should discuss:
+
+--
+
+### The survey data you have access to.
+
+--
+
+### The auxiliary data you have access to.
+
+--
+
+### If you are currently combining these data sources for estimation.
+
+---
+
+## Other case studies...
+
+--
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+### [American Community Survey using Age and Sex for Census Tracts](https://www.census.gov/content/dam/Census/library/working-papers/2007/acs/2007_Fay_01.pdf)
+
+
+XXX: Find more!
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

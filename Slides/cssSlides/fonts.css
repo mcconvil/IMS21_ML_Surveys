@@ -1,0 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Anton);
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #2f3e46;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
