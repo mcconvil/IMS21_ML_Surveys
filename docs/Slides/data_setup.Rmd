@@ -327,20 +327,20 @@ background-color: #CFF09E
 
 ### If you are currently combining these data sources for estimation.
 
----
+<!-- --- -->
 
-## Other case studies...
+<!-- ## Other case studies... -->
 
---
+<!-- -- -->
 
-```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
-knitr::include_graphics("img/fs.png")
-```
+<!-- ```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'} -->
+<!-- knitr::include_graphics("img/fs.png") -->
+<!-- ``` -->
 
-### [American Community Survey using Age and Sex for Census Tracts](https://www.census.gov/content/dam/Census/library/working-papers/2007/acs/2007_Fay_01.pdf)
+<!-- ### [American Community Survey using Age and Sex for Census Tracts](https://www.census.gov/content/dam/Census/library/working-papers/2007/acs/2007_Fay_01.pdf) -->
 
 
-XXX: Find more!
+<!-- XXX: Find more! -->
 
 
 

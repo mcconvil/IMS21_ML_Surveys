@@ -9,8 +9,10 @@ navbar:
     - text: "Slides"
       icon: fa-area-chart
       menu:
-        - text: "Motivation"
-          href: motivation.html
+        - text: "Model-Assisted Estimation"
+          href: data_setup.html      
+        - text: "Estimator Deep Dive"
+          href: estimator_deep_dive.html
   type: default       
 output:
   html_document:

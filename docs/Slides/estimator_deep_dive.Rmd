@@ -365,8 +365,8 @@ background-color: #CFF09E
 
 # Questions?
 
----
+<!-- --- -->
 
-Next slide deck:
+<!-- Next slide deck: -->
 
-Pull from `mase` demo + more discussion of the model checking step!
+<!-- Pull from `mase` demo + more discussion of the model checking step! -->
