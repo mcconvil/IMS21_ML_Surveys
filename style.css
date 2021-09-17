@@ -33,8 +33,8 @@ a:hover {
 /*----------------ADDING WHITE SPACE-------------*/
 
 .title {
-  margin-top: 1em !important;
-  margin-bottom: 0.1em;
+  margin-top: .7em !important;
+  margin-bottom: 0.3em;
 }
 
 .section h1,

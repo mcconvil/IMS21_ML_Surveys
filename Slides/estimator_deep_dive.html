@@ -132,7 +132,7 @@ Suppose we had a "method" for predicting `\(y\)`, `\(m(\cdot)\)`, that does not 
 
 --
 
-Is unbiased: `\(E(\hat{t}_y) = t_y\)`
+Is design unbiased: `\(E(\hat{t}_y) = t_y\)`
 
 --
 
@@ -145,7 +145,7 @@ where `\(\pi_{ij} = P(i, j \in s)\)`.
 
 --
 
-Which has an unbiased estimator:
+Which has a design unbiased estimator:
 
 `$$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - m(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - m(\boldsymbol{x}_j)\right)}{\pi_j}$$`
 
@@ -279,6 +279,20 @@ BUT the .mauve[precision] of the estimator depends on the predictive quality of 
 
 
 `$$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - \hat{m}(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - \hat{m}(\boldsymbol{x}_j)\right)}{\pi_j}$$`
+---
+
+class: center, middle
+background-color: #CFF09E
+
+# Up Next: 
+
+--
+
+### Come back to the FIA and BLS case studies and consider suitable assisting models
+
+--
+
+### Practice fitting generalized regression estimators in `R`!
 
 ---
 
