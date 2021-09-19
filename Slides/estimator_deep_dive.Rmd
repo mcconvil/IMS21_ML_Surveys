@@ -45,9 +45,6 @@ background-color: #e9ecef
 
 <style>
 .mauve {color: #AB505E;}
-.red {color: #FF0000;}
-.green {color: #00FF00;}
-.blue {color: #0000FF;}
 </style>
 
 <!-- Cite: https://unsplash.com/photos/W-vPMF3vUK0 -->
@@ -307,6 +304,10 @@ Doesn't have an exact design variance expression
 Estimated variance based on formula from the Difference Estimator:
 
 $$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - \hat{m}(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - \hat{m}(\boldsymbol{x}_j)\right)}{\pi_j}$$
+
+
+
+
 ---
 
 ### The Assisting Model
@@ -335,9 +336,99 @@ An incomplete list includes:
 
 ---
 
+### The Generalized Regression Estimator
+
+
+$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$
+Start with linear regression assisting model:
+
+--
+
+\begin{align*}
+y_i & = m(\boldsymbol{x}_i) + \epsilon_i\\
+&= \beta_o + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \epsilon_i \\
+& = \boldsymbol{x}_i^T \boldsymbol{\beta} + \epsilon_i
+\end{align*}
+
+where $\epsilon_i \sim (0, \sigma^2)$.
+
+---
+
+### The Generalized Regression Estimator
+
+So then 
+
+$$\hat{t}_y = \sum_{i \in U} \boldsymbol{x}_i^T \hat{\boldsymbol{\beta}} + \sum_{i \in s} \frac{y_i - \boldsymbol{x}_i^T \hat{\boldsymbol{\beta}}}{\pi_i}$$
+
+with
+
+\begin{align*}
+\boldsymbol{\hat{\beta}} &= \underset{\boldsymbol{\beta}}{\arg\min} \sum_{i \in s} \frac{(y_i - \boldsymbol{x}_i^T \boldsymbol{\beta})^2}{ \pi_i} 
+\end{align*}
+
+--
+
+Special cases:
+
+
+--
+
+* Post-stratified estimator: Single categorical predictor
+
+--
+
+* Ratio estimator: Single quantitative predictor with regression through the origin
+
+---
+
+### The Generalized Regression Estimator
+
+Under the linear model, can be written as:
+
+\begin{align*}
+\hat{t}_{y} =  \sum_{i \in s} \left[1 +  \left(\sum_{j \in U} \boldsymbol{x}_j - \sum_{j \in s} \frac{\boldsymbol{x}_j}{\pi_j}\right)^{T} \left( \sum_{j \in s} \frac{\boldsymbol{x}_j \boldsymbol{x}_j^{T}}{\pi_j} \right)^{-1} \boldsymbol{x}_i \right] \frac{y_i}{\pi_i} = \sum_{i \in s} w_i y_i
+\end{align*}
+
+--
+
+Survey weights, $w_i$'s, .mauve[don't depend] on the $y_i$'s!
+
+--
+
+&rarr; Can apply the weights to many different response variables!
+
+--
+
+Estimator is also .mauve[calibrated] to the auxiliary data:
+
+\begin{align*}
+\sum_{i \in s} w_i \boldsymbol{x}_i = \sum_{i \in U} \boldsymbol{x}_i
+\end{align*}
+
+---
+
+### The Generalized Regression Estimator
+
+Issues with the linear assisting model:
+
+--
+
+* Can get highly variable weights
+
+--
+
+* Can even get negative weights
+
+--
+
+* For mis-specified models, don't get much (if any) gains in precision
+
+
+---
+
 ### The Assisting Model
 
-How should I pick which assisting model to use?
+How should I pick .mauve[which] assisting model to use?
 
 --
 

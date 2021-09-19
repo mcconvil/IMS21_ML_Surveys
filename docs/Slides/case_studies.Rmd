@@ -1,5 +1,5 @@
 ---
-title: Case Studies with R
+title: Case Studies
 header-includes:
    - \usepackage{xcolor}
 output:
@@ -34,16 +34,20 @@ library(tidyverse)
 
 
 class: center, middle, hide_logo
-background-image: url("img/daggett6.001.jpeg")
+background-image: url("img/casestudies.jpeg")
 background-position: left
 background-size: contain
 background-color: #e9ecef
+
+<style>
+.mauve {color: #AB505E;}
+</style>
 
 
 
 .pull-right[
 
-## Case Studies with R
+## Case Studies
 
 
 #### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
@@ -61,10 +65,331 @@ background-color: #e9ecef
 
 class: center
 
-### Model-Assisted Survey Estimation
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+> **Mission**: "Make and keep current a comprehensive inventory and analysis of the present and prospective conditions of and requirements for the renewable resources of the forest and rangelands of the US."
+
+
+
+Focusing on Daggett County, Utah:
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/data_needs2.004.jpeg")
+```
+
+.pull-left[
+
+Quasi-systematic sample of ground plots
+
+]
+
+
+.pull-right[
+
+**Many** layers of remotely sensed data!
+
+]
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
 
 --
 
-#### **Goal**: Estimate finite population quantities, such as means and totals.
+* Want a simple model.
+--
 
-XXX
+* Have lots of auxiliary data layers.
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/FIA_EDA.jpeg")
+```
+
+<!-- --- -->
+
+<!-- ```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'} -->
+<!-- knitr::include_graphics("img/fs.png") -->
+<!-- ``` -->
+
+<!-- ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/) -->
+
+<!-- **Goal**: Estimate .mauve[MANY] finite population quantities! -->
+
+
+<!-- Use linear assisting model but estimate coefficients with the .mauve[elastic net]: -->
+
+
+<!-- \begin{aligned} -->
+<!-- \boldsymbol{\hat{\beta}} &= \underset{\boldsymbol{\beta}}{\arg\min}  \left\{ \sum_{i \in s} \frac{(y_i - \boldsymbol{x}_i^T \boldsymbol{\beta})^2}{ \pi_i} + \lambda \left[ \alpha \sum_{j=1}^p \left|\beta_j\right| + (1-\alpha) \sum_{j=1}^p \beta_j^2\right] \right\} -->
+<!-- \end{aligned} -->
+
+---
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+```{r, echo = FALSE, out.width = '80%'}
+knitr::include_graphics("img/elasticnet.png")
+```
+
+
+---
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+```{r, echo = FALSE, out.width = '80%'}
+knitr::include_graphics("img/penalty.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+```{r, echo = FALSE, out.width = '80%'}
+knitr::include_graphics("img/lasso.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+```{r, echo = FALSE, out.width = '80%'}
+knitr::include_graphics("img/ridge.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+```{r, echo = FALSE, out.width = '80%'}
+knitr::include_graphics("img/alpha.png")
+```
+
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+--
+
+.center[**For total trees per acre**]
+
+--
+
+.pull-left[
+
+**Selected Predictors**:
+
+* Normalized Difference Vegetation Index
+* Slope
+* Normalized Burn Ratio
+* Elevation
+* Slope : Forest/Non-Forest
+
+
+]
+
+--
+
+.pull-right[
+
+**Non-Selected Predictors**:
+
+* Forest Probability
+* Eastness
+* Forest Probability : Forest/Non-Forest
+* Normalized Difference Vegetation Index : Forest/Non-Forest
+* Normalized Burn Ratio : Forest/Non-Forest
+* Elevation : Forest/Non-Forest
+* Eastness : Forest/Non-Forest
+
+
+]
+
+
+---
+
+class: center
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/fs.png")
+```
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+```{r, echo = FALSE}
+dat <- data.frame(name = c("Horvitz-Thompson", "FIA", "Elastic Net"),
+                  value = c(327.76,
+                            336.35,
+                            316.55), 
+                  se = c(58.44, 55.82,
+                         43.9)) %>%
+  mutate(name = factor(name),
+         name = forcats::fct_relevel(name, "Horvitz-Thompson", "FIA"))
+dat %>%
+ggplot(mapping = aes(x = name, y = value))   +
+  theme_bw() +
+  geom_errorbar(aes(ymin = value - 2*se, ymax = value + 2*se), width = 0.2, color = "#AB505E", size = 2) + 
+  geom_point(size = 5, color = "orange") +
+  labs(x = "Estimator",
+       y = "Average Trees per Acre",
+       title = "Daggett County Utah Estimates of Average Trees per Acre")
+```
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
+```
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+.pull-left[
+
+
+
+Maintain many different surveys:
+
+* Job Openings and Labor Turnover Survey
+* Occupational Employment and Wage Statistics
+
+
+
+
+]
+
+
+
+.pull-right[
+
+Quarterly Census of Employment and Wages:
+
+* Size class
+
+* Geographic information
+
+* Industry type
+
+* Whether or not its a multi-establishment firm
+
+]
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
+```
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+```{r, echo = FALSE, out.width= "95%"}
+knitr::include_graphics("img/tree.png")
+```
+
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+### General Thoughts on Selecting the Model
+
+--
+
+#### Consider your audience.
+
+--
+
+#### Figure out what data you have access to.
+
+--
+
+#### Do lots of exploratory data analysis.
+
+--
+
+
+#### Analyze the resulting survey weights.
+

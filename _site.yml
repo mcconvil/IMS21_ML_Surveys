@@ -13,6 +13,10 @@ navbar:
           href: data_setup.html      
         - text: "Estimator Deep Dive"
           href: estimator_deep_dive.html
+        - text: "Case Studies"
+          href: case_studies.html
+        - text: "Applications in R with mase"
+          href: mase_R.html                    
   type: default       
 output:
   html_document:

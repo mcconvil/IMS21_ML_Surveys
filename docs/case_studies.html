@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Model Assisted Estimation</title>
+    <title>Case Studies</title>
     <meta charset="utf-8" />
     <script src="libsSlides/header-attrs-2.10/header-attrs.js"></script>
     <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -16,16 +16,20 @@
 
 
 class: center, middle, hide_logo
-background-image: url("img/daggett6.001.jpeg")
+background-image: url("img/casestudies.jpeg")
 background-position: left
 background-size: contain
 background-color: #e9ecef
+
+&lt;style&gt;
+.mauve {color: #AB505E;}
+&lt;/style&gt;
 
 
 
 .pull-right[
 
-## Model Assisted Estimation
+## Case Studies
 
 
 #### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
@@ -43,160 +47,6 @@ background-color: #e9ecef
 
 class: center
 
-### Model-Assisted Survey Estimation
-
---
-
-#### **Goal**: Estimate finite population quantities, such as means and totals.
-
---
-
-#### Data Needed:
-
-
-
-&lt;img src="img/data_needs2.004.jpeg" width="1402" /&gt;
-
----
-
-class: center
-
-### Estimation Set-up
-
---
-
-Enumerate the finite population of interest.
-
-&lt;img src="img/enumerate.jpeg" width="1481" /&gt;
-
-`\(U = \{1, 2, \ldots, N\}\)`
-
-
----
-
-class: center
-
-### Estimation Set-up
-
---
-
-
-**Goal:** Estimate a population quantity, such as the total of a response variable, `\(y\)`.
-
-
-&lt;img src="img/response.jpeg" width="1482" /&gt;
-
-
-`\(t_y = \sum_{i \in U} y_i\)`
-
-
----
-
-class: center
-
-### Estimation Set-up
-
---
-
-
-Have auxiliary data for the entire population or summary auxiliary data.
-
-
-&lt;img src="img/aux_data.jpeg" width="1484" /&gt;
-
-
-Have `\(\{\boldsymbol{x}_i\}_{i\in U}\)` or `\(\bar{\boldsymbol{x}}_U\)`.
-
-
----
-
-class: center
-
-### Estimation Set-up
-
---
-
-
-Construct a sampling design.  Assume a design-based approach to inference.
-
-&lt;img src="img/sampling_design.jpeg" width="1491" /&gt;
-
-
-Have `\(\{\pi_i\}_{i\in U}\)` where `\(\pi_i = P(i \in s)\)`.
-
-
----
-
-class: center
-
-### Estimation Set-up
-
-A sample is taken and you have access to the following data for estimation.
-
-&lt;img src="img/all_data.jpeg" width="1489" /&gt;
-
-One option: `\(\hat{t}_y = \sum_{i \in s} \frac{y_i}{\pi_i}\)`
-
-(Horvitz-Thompson Estimator)
-
-
----
-
-class: center
-
-### Estimation Set-up
-
-Another option: Use the sample to **build** a model and then **predict** `\(y\)` over all the population units.
-
-&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
-
-`\(\hat{t}_y = \sum_{i \in s} y_i + \sum_{i \in U-s} \hat{m}(\boldsymbol{x_i})\)`
-
----
-
-class: center
-
-### Estimation Set-up
-
-Estimator: `\(\hat{t}_y = \sum_{i \in s} y_i + \sum_{i \in U-s} \hat{m}(\boldsymbol{x_i})\)`
-
-&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
-
-Estimator can be rather biased when the model is misspecified.
-
-
-
----
-
-class: center
-
-### Estimation Set-up
-
-**Another approach:** Use a bias-correction term.
-
-&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
-
-
-Model-assisted estimator: 
-
-`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
-
-
----
-
-class: center, middle
-background-color: #CFF09E
-
-### Come back to the specifics of the estimator soon...
-
---
-
-## But first, do we even have the necessary data?
-
----
-
-class: center
-
 &lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
@@ -204,7 +54,6 @@ class: center
 &gt; **Mission**: "Make and keep current a comprehensive inventory and analysis of the present and prospective conditions of and requirements for the renewable resources of the forest and rangelands of the US."
 
 
---
 
 Focusing on Daggett County, Utah:
 
@@ -216,13 +65,180 @@ Quasi-systematic sample of ground plots
 
 ]
 
---
 
 .pull-right[
 
 **Many** layers of remotely sensed data!
 
 ]
+
+---
+
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+--
+
+* Want a simple model.
+--
+
+* Have lots of auxiliary data layers.
+
+&lt;img src="img/FIA_EDA.jpeg" width="1736" /&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'} --&gt;
+&lt;!-- knitr::include_graphics("img/fs.png") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/) --&gt;
+
+&lt;!-- **Goal**: Estimate .mauve[MANY] finite population quantities! --&gt;
+
+
+&lt;!-- Use linear assisting model but estimate coefficients with the .mauve[elastic net]: --&gt;
+
+
+&lt;!-- \begin{aligned} --&gt;
+&lt;!-- \boldsymbol{\hat{\beta}} &amp;= \underset{\boldsymbol{\beta}}{\arg\min}  \left\{ \sum_{i \in s} \frac{(y_i - \boldsymbol{x}_i^T \boldsymbol{\beta})^2}{ \pi_i} + \lambda \left[ \alpha \sum_{j=1}^p \left|\beta_j\right| + (1-\alpha) \sum_{j=1}^p \beta_j^2\right] \right\} --&gt;
+&lt;!-- \end{aligned} --&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+&lt;img src="img/elasticnet.png" width="80%" /&gt;
+
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+&lt;img src="img/penalty.png" width="80%" /&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+&lt;img src="img/lasso.png" width="80%" /&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+&lt;img src="img/ridge.png" width="80%" /&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+
+
+&lt;img src="img/alpha.png" width="80%" /&gt;
+
+
+
+---
+
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+--
+
+.center[**For total trees per acre**]
+
+--
+
+.pull-left[
+
+**Selected Predictors**:
+
+* Normalized Difference Vegetation Index
+* Slope
+* Normalized Burn Ratio
+* Elevation
+* Slope : Forest/Non-Forest
+
+
+]
+
+--
+
+.pull-right[
+
+**Non-Selected Predictors**:
+
+* Forest Probability
+* Eastness
+* Forest Probability : Forest/Non-Forest
+* Normalized Difference Vegetation Index : Forest/Non-Forest
+* Normalized Burn Ratio : Forest/Non-Forest
+* Elevation : Forest/Non-Forest
+* Eastness : Forest/Non-Forest
+
+
+]
+
+
+---
+
+class: center
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .mauve[MANY] finite population quantities!
+
+&lt;img src="case_studies_files/figure-html/unnamed-chunk-17-1.png" width="432" /&gt;
+
 
 ---
 
@@ -248,7 +264,7 @@ Maintain many different surveys:
 
 ]
 
---
+
 
 .pull-right[
 
@@ -267,42 +283,42 @@ Quarterly Census of Employment and Wages:
 
 ---
 
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+&lt;img src="img/tree.png" width="95%" /&gt;
+
+
+---
+
 class: center, middle
 background-color: #CFF09E
 
-
-## In your breakout rooms, each person should discuss:
-
---
-
-### The survey data you have access to.
+### General Thoughts on Selecting the Model
 
 --
 
-### The auxiliary data you have access to.
+#### Consider your audience.
 
 --
 
-### If you are currently combining these data sources for estimation.
+#### Figure out what data you have access to.
 
-&lt;!-- --- --&gt;
+--
 
-&lt;!-- ## Other case studies... --&gt;
+#### Do lots of exploratory data analysis.
 
-&lt;!-- -- --&gt;
-
-&lt;!-- ```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'} --&gt;
-&lt;!-- knitr::include_graphics("img/fs.png") --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ### [American Community Survey using Age and Sex for Census Tracts](https://www.census.gov/content/dam/Census/library/working-papers/2007/acs/2007_Fay_01.pdf) --&gt;
+--
 
 
-&lt;!-- XXX: Find more! --&gt;
-
-
-
-
+#### Analyze the resulting survey weights.
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

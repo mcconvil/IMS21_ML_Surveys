@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Applications in R with mase</title>
+    <meta charset="utf-8" />
+    <script src="libsSlides/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="cssSlides/styling.css" type="text/css" />
+    <link rel="stylesheet" href="cssSlides/fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: center, middle, hide_logo
+background-image: url("img/mases.001.png")
+background-position: left
+background-size: contain
+background-color: #e9ecef
+
+
+
+
+.pull-right[
+
+## Applications in `R` with `mase`
+
+#### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
+
+#### 2021 International Methodology Symposium
+
+#### Kelly McConville
+
+#### October 14, 2021
+
+]
+
+
+
+---
+
+
+## Model-Assisted Survey Estimation
+
+**Goal**: Estimate `\(t_y = \sum_{i \in U} y_i\)`.
+
+
+Data we have:
+
+&lt;img src="img/setup.png" width="1186" /&gt;
+
+* Along with first-order inclusion probabilities
+
+
+---
+
+background-image: url("img/mases.001.png")
+background-position: left
+background-size: contain
+
+
+
+
+.pull-right[
+
+## Documentation
+
+* [CRAN](https://cran.r-project.org/web/packages/mase/)
+
+
+```r
+install.packages("mase")
+```
+
+
+* Very Developmental Version:  [GitHub](https://github.com/mcconvil/mase)
+    + Recommend installing the CRAN version
+
+
+]
+
+
+
+
+---
+
+## Estimators in mase
+
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(x_i) + \sum_{i \in s} \frac{y_i - \hat{m}(x_i)}{\pi_i}$$`
+
+Where `\(m(\cdot)\)` is:
+
+* Linear regression through the origin: `ratioEstimator()`
+* Linear regression: `greg()` (Generalized Regression Estimator)
+* Elastic-Net regression: `gregElasticNet()`
+* Regression trees: `gregTree()`
+    + Uses `rpms`
+
+
+---
+
+## Example Dataset: `pdxTrees`
+
+.left-column[
+
+&lt;img src="img/pdxHexSticker.png" width="327" /&gt;
+
+]
+
+.right-column[
+
+🌳 Data from Portland, OR Tree Inventory Project
+
+🌳 [Vignette](https://cran.r-project.org/web/packages/pdxTrees/vignettes/pdxTrees-vignette.html)
+
+🌳 [CRAN](https://cran.r-project.org/web/packages/pdxTrees/)
+
+🌳 [GitHub](https://github.com/mcconvil/pdxTrees)
+
+
+
+```r
+library(tidyverse)
+library(pdxTrees)
+pop &lt;- get_pdxTrees_parks() %&gt;%
+  replace_na(list(Functional_Type = "Unknown")) %&gt;%
+  drop_na(DBH, Tree_Height, Condition,
+          Functional_Type)
+nrow(pop)
+```
+
+```
+## [1] 25533
+```
+
+]
+
+
+---
+
+## Example Dataset: `pdxTrees`
+
+**Want to estimate the average diameter at breast height**
+
+* Y = `DBH`
+
+* Auxiliary data: X = `Tree_Height`, `Condition`, `Functional_Type`
+    + Known for every tree in the population
+
+
+```r
+set.seed(44)
+samp_SRS &lt;- sample_n(pop, 1000) %&gt;%
+  select(DBH, Tree_Height, Condition, Functional_Type) %&gt;%
+  mutate(pi = 1000/nrow(pop))
+```
+
+---
+
+## Exploratory Data Analysis
+
+
+```r
+ggplot(data = samp_SRS, 
+       mapping = aes(x = Tree_Height, 
+                     y = DBH, 
+                     color = Condition,
+                     size = 1/pi)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+&lt;img src="mase_R_files/figure-html/unnamed-chunk-6-1.png" width="432" /&gt;
+
+---
+
+## Exploratory Data Analysis
+
+
+
+```r
+ggplot(data = samp_SRS, 
+       mapping = aes(x = Condition, 
+                     y = DBH, 
+                     fill = Condition)) +
+  geom_boxplot() +
+  guides(fill = FALSE)
+```
+
+&lt;img src="mase_R_files/figure-html/unnamed-chunk-7-1.png" width="432" /&gt;
+
+---
+
+## Exploratory Data Analysis
+
+
+
+```r
+ggplot(data = samp_SRS, 
+       mapping = aes(x = Functional_Type, 
+                     y = DBH, 
+                     fill = Functional_Type)) +
+  geom_boxplot() +
+  guides(fill = FALSE)
+```
+
+&lt;img src="mase_R_files/figure-html/unnamed-chunk-8-1.png" width="432" /&gt;
+
+---
+
+### Horvitz-Thompson Estimator
+
+
+```r
+library(mase)
+
+horvitzThompson(y = samp_SRS$DBH,
+          pi = samp_SRS$pi, var_est = TRUE)
+```
+
+```
+## $pop_total
+## [1] 540680
+## 
+## $pop_mean
+## [1] 21
+## 
+## $pop_total_var
+## [1] 125419378
+## 
+## $pop_mean_var
+## [1] 0.19
+```
+
+---
+
+### Generalized Regression Estimator
+
+
+```r
+xsample &lt;- select(samp_SRS, Condition, Tree_Height) %&gt;%
+  as.data.frame()
+
+xpop &lt;- select(pop, names(xsample))
+
+greg(y = samp_SRS$DBH, xsample = xsample, xpop = xpop,
+          pi = samp_SRS$pi, var_est = TRUE, datatype = "raw")
+```
+
+```
+## $pop_total
+## [1] 533211
+## 
+## $pop_mean
+## [1] 21
+## 
+## $pop_total_var
+## [1] 47520499
+## 
+## $pop_mean_var
+## [1] 0.073
+## 
+## $weights
+##    [1] 26 24 26 26 25 26 25 26 25 25 24 25 24 26 26 25 26 26 26 26 25 26 25 26
+##   [25] 27 25 26 26 27 26 26 26 26 25 25 25 25 26 26 26 26 24 24 25 26 25 25 25
+##   [49] 25 25 25 24 26 26 26 25 26 26 25 24 25 26 25 27 25 26 24 26 26 26 26 26
+##   [73] 26 25 24 26 26 26 26 24 25 25 26 26 26 24 25 26 26 26 26 27 25 26 25 26
+##   [97] 25 26 26 25 25 26 26 26 26 24 25 25 25 27 26 26 25 26 26 25 26 26 25 26
+##  [121] 24 25 25 24 25 25 26 25 25 25 25 25 26 26 26 26 26 24 25 26 26 25 25 26
+##  [145] 26 26 25 26 25 25 24 25 25 26 24 27 25 27 26 25 26 25 25 26 25 25 26 24
+##  [169] 26 26 26 26 24 27 25 25 25 25 24 26 26 24 24 25 26 26 26 24 24 26 24 25
+##  [193] 25 26 26 26 26 26 26 26 25 26 25 25 26 26 26 26 26 25 25 25 26 26 26 24
+##  [217] 26 24 25 26 26 26 26 26 25 26 26 27 26 26 26 26 25 26 26 25 26 27 25 26
+##  [241] 27 25 25 26 26 24 26 25 26 25 26 26 26 26 25 26 25 26 25 26 26 26 26 25
+##  [265] 25 26 26 25 25 25 25 25 25 25 25 25 25 26 24 26 26 24 26 26 26 26 24 25
+##  [289] 26 26 26 27 25 24 26 26 26 25 26 26 25 24 26 26 26 26 26 26 26 24 26 25
+##  [313] 26 25 24 26 25 26 25 25 25 25 26 25 26 25 26 25 25 26 26 26 26 24 25 26
+##  [337] 25 26 26 26 25 24 26 24 25 26 27 25 24 26 26 26 26 25 25 26 26 26 26 26
+##  [361] 25 26 25 25 24 26 24 26 26 26 26 26 24 26 26 26 26 24 26 25 24 25 25 25
+##  [385] 26 25 26 26 26 25 26 25 26 24 26 26 24 26 26 26 25 26 25 26 25 26 25 26
+##  [409] 25 26 25 25 25 24 25 26 25 26 26 26 27 25 25 25 26 26 26 27 26 26 26 27
+##  [433] 26 26 27 27 26 26 27 25 25 24 25 25 24 26 26 25 24 25 26 25 26 25 24 26
+##  [457] 26 26 26 26 25 26 25 26 26 26 25 26 25 24 26 25 25 26 25 26 26 26 25 25
+##  [481] 25 26 26 26 25 25 26 26 24 26 26 26 25 25 25 25 26 26 25 25 26 26 26 26
+##  [505] 25 25 26 25 25 26 25 26 25 26 25 24 24 26 26 25 26 26 24 26 25 26 24 25
+##  [529] 26 25 26 26 26 25 26 25 25 25 24 26 25 25 26 26 26 25 24 26 25 25 25 25
+##  [553] 26 26 26 25 25 25 26 27 25 26 26 25 24 26 25 25 25 26 26 25 25 26 26 26
+##  [577] 26 26 26 26 26 26 25 25 27 26 25 25 26 25 26 25 25 26 26 26 26 26 26 25
+##  [601] 26 26 25 26 26 27 26 26 26 26 25 25 25 26 25 25 26 25 25 26 25 26 26 26
+##  [625] 25 26 26 25 24 26 26 25 26 26 26 25 25 26 26 25 24 26 25 26 25 26 26 26
+##  [649] 26 26 25 26 26 25 27 26 25 26 26 26 26 27 24 26 26 25 26 25 25 24 24 26
+##  [673] 26 26 24 25 25 25 26 26 26 25 25 26 25 26 26 25 26 26 25 26 26 26 24 25
+##  [697] 25 24 26 27 26 26 26 26 26 25 25 26 25 24 25 24 26 26 26 26 26 25 26 25
+##  [721] 26 24 26 25 25 26 25 25 25 25 25 26 24 27 26 24 26 26 24 26 26 25 25 26
+##  [745] 26 26 25 26 25 26 25 25 25 25 26 26 26 26 26 26 24 26 25 26 26 25 27 25
+##  [769] 26 26 25 25 25 26 26 25 25 25 23 24 25 26 26 26 26 24 25 26 26 25 25 26
+##  [793] 26 26 26 26 24 25 26 26 24 27 25 24 26 26 25 26 25 27 26 25 26 26 26 26
+##  [817] 25 26 26 25 25 24 26 24 25 24 25 25 26 25 24 26 26 25 24 24 26 26 26 26
+##  [841] 26 26 24 26 26 26 26 26 26 26 26 26 25 26 24 26 25 26 25 25 26 25 25 26
+##  [865] 26 26 26 25 26 26 25 25 26 26 27 26 25 27 26 26 26 26 26 26 24 26 26 25
+##  [889] 25 26 25 27 25 26 26 26 26 26 25 25 26 26 26 27 25 25 26 26 26 26 25 27
+##  [913] 26 26 25 26 25 26 26 25 26 26 26 25 26 26 25 26 26 26 26 25 25 27 25 25
+##  [937] 25 25 25 25 26 26 24 26 26 25 26 26 25 24 26 25 25 26 25 26 25 26 26 26
+##  [961] 26 26 25 26 25 25 26 26 26 25 26 25 26 25 26 25 26 26 25 26 26 26 26 26
+##  [985] 26 26 26 25 25 26 26 25 26 26 26 25 25 25 26 26
+## 
+## $coefficients
+##               [,1]
+## (Intercept)   0.73
+## ConditionFair 1.68
+## ConditionGood 4.39
+## ConditionPoor 2.55
+## Tree_Height   0.28
+```
+
+
+---
+
+### Generalized Regression Estimator with Elastic Net
+
+
+```r
+gregElasticNet(y = samp_SRS$DBH, xsample = xsample, xpop = xpop,
+          pi = samp_SRS$pi, var_est = TRUE, datatype = "raw")
+```
+
+```
+## $pop_total
+## [1] 533225
+## 
+## $pop_mean
+## [1] 21
+## 
+## $pop_total_var
+## [1] 47835153
+## 
+## $pop_mean_var
+## [1] 0.073
+## 
+## $coefficients
+##   (Intercept) ConditionFair ConditionGood ConditionPoor   Tree_Height 
+##          2.83          0.00          0.00          0.00          0.27
+```
+
+---
+
+### Generalized Regression Estimator with Regression Trees
+
+
+```r
+xsample &lt;- select(samp_SRS, Functional_Type, Tree_Height) %&gt;%
+  mutate(Functional_Type = factor(Functional_Type)) %&gt;%
+  as.data.frame() 
+
+xpop &lt;- select(pop, names(xsample)) %&gt;%
+  mutate(Functional_Type = factor(Functional_Type)) %&gt;%
+  as.data.frame()
+
+est &lt;- gregTree(y = samp_SRS$DBH, xsample = xsample, 
+                xpop = xpop, pi = samp_SRS$pi)
+```
+
+---
+
+### Generalized Regression Estimator with Regression Trees
+
+
+
+```r
+est$tree
+```
+
+```
+## 
+## RPMS Recursive Partitioning Equation 
+## y ~ Functional_Type + Tree_Height
+## 
+## Estimating Equation 
+## y ~ 1
+## 
+## 
+## [1] "unequal probability of selection, sample design"
+## [1] "R-squared of model: 0.655661141370612"
+## 
+## ===================== Tree Model =================== 
+##  
+##    Splits                                                                                 
+## sp   Tree_Height &lt;= 67.5                                                                  
+## sp   Tree_Height &lt;= 67.5 &amp; Tree_Height &lt;= 33.5                                            
+## sp   Tree_Height &lt;= 67.5 &amp; Tree_Height &lt;= 33.5 &amp; Tree_Height &lt;= 20.5                      
+## sp   Tree_Height &lt;= 67.5 &amp; Tree_Height &lt;= 33.5 &amp; Tree_Height &lt;= 20.5 &amp; Tree_Height &lt;= 14.5
+## sp   Tree_Height &lt;= 67.5 &amp; Tree_Height &lt;= 33.5 &amp; Tree_Height &gt; 20.5 &amp; Tree_Height &lt;= 29.5 
+## sp   Tree_Height &lt;= 67.5 &amp; Tree_Height &gt; 33.5 &amp; Tree_Height &lt;= 47.5                       
+## sp   Tree_Height &gt; 67.5 &amp; Tree_Height &lt;= 104.5                                            
+## sp   Tree_Height &gt; 67.5 &amp; Tree_Height &lt;= 104.5 &amp; Tree_Height &lt;= 84.5                      
+## sp   Tree_Height &gt; 67.5 &amp; Tree_Height &gt; 104.5 &amp; Tree_Height &lt;= 137.5                      
+## 
+##     coefficients
+## node    1
+##   16  2.4
+##   17  5.3
+##   18  7.9
+##   19 10.9
+##   10 14.2
+##   11 20.0
+##   12 26.0
+##   13 31.6
+##   14 34.4
+##   15 40.7
+## 
+## 
+```
+
+
+---
+
+### Aggregated Auxiliary Information
+
+* Don't have unit level data for the non-sampled units
+* Just have aggregated data
+
+
+
+
+```r
+xpop_agg
+```
+
+```
+## # A tibble: 1 × 4
+##   Tree_Height Condition_Fair Condition_Good Condition_Poor
+##         &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+## 1        65.7          0.873         0.0645         0.0526
+```
+
+
+
+```r
+library(recipes)
+
+xsample &lt;- recipe(~ Condition + Tree_Height, data = samp_SRS) %&gt;%
+  step_dummy(Condition) %&gt;%
+  prep(training = samp_SRS) %&gt;%
+  bake(new_data = NULL) %&gt;%
+  as.data.frame()
+
+xsample %&gt;%
+  summarise_all(mean)
+```
+
+```
+##   Tree_Height Condition_Fair Condition_Good Condition_Poor
+## 1          67           0.87          0.064          0.052
+```
+
+---
+
+### Aggregated Auxiliary Information
+
+
+```r
+greg(y = samp_SRS$DBH, xsample = xsample, xpop = xpop_agg,
+          pi = samp_SRS$pi, var_est = TRUE, datatype = "means")
+```
+
+```
+## $pop_total
+## [1] 533211
+## 
+## $pop_mean
+## [1] 21
+## 
+## $pop_total_var
+## [1] 47520499
+## 
+## $pop_mean_var
+## [1] 0.073
+## 
+## $weights
+##    [1] 26 24 26 26 25 26 25 26 25 25 24 25 24 26 26 25 26 26 26 26 25 26 25 26
+##   [25] 27 25 26 26 27 26 26 26 26 25 25 25 25 26 26 26 26 24 24 25 26 25 25 25
+##   [49] 25 25 25 24 26 26 26 25 26 26 25 24 25 26 25 27 25 26 24 26 26 26 26 26
+##   [73] 26 25 24 26 26 26 26 24 25 25 26 26 26 24 25 26 26 26 26 27 25 26 25 26
+##   [97] 25 26 26 25 25 26 26 26 26 24 25 25 25 27 26 26 25 26 26 25 26 26 25 26
+##  [121] 24 25 25 24 25 25 26 25 25 25 25 25 26 26 26 26 26 24 25 26 26 25 25 26
+##  [145] 26 26 25 26 25 25 24 25 25 26 24 27 25 27 26 25 26 25 25 26 25 25 26 24
+##  [169] 26 26 26 26 24 27 25 25 25 25 24 26 26 24 24 25 26 26 26 24 24 26 24 25
+##  [193] 25 26 26 26 26 26 26 26 25 26 25 25 26 26 26 26 26 25 25 25 26 26 26 24
+##  [217] 26 24 25 26 26 26 26 26 25 26 26 27 26 26 26 26 25 26 26 25 26 27 25 26
+##  [241] 27 25 25 26 26 24 26 25 26 25 26 26 26 26 25 26 25 26 25 26 26 26 26 25
+##  [265] 25 26 26 25 25 25 25 25 25 25 25 25 25 26 24 26 26 24 26 26 26 26 24 25
+##  [289] 26 26 26 27 25 24 26 26 26 25 26 26 25 24 26 26 26 26 26 26 26 24 26 25
+##  [313] 26 25 24 26 25 26 25 25 25 25 26 25 26 25 26 25 25 26 26 26 26 24 25 26
+##  [337] 25 26 26 26 25 24 26 24 25 26 27 25 24 26 26 26 26 25 25 26 26 26 26 26
+##  [361] 25 26 25 25 24 26 24 26 26 26 26 26 24 26 26 26 26 24 26 25 24 25 25 25
+##  [385] 26 25 26 26 26 25 26 25 26 24 26 26 24 26 26 26 25 26 25 26 25 26 25 26
+##  [409] 25 26 25 25 25 24 25 26 25 26 26 26 27 25 25 25 26 26 26 27 26 26 26 27
+##  [433] 26 26 27 27 26 26 27 25 25 24 25 25 24 26 26 25 24 25 26 25 26 25 24 26
+##  [457] 26 26 26 26 25 26 25 26 26 26 25 26 25 24 26 25 25 26 25 26 26 26 25 25
+##  [481] 25 26 26 26 25 25 26 26 24 26 26 26 25 25 25 25 26 26 25 25 26 26 26 26
+##  [505] 25 25 26 25 25 26 25 26 25 26 25 24 24 26 26 25 26 26 24 26 25 26 24 25
+##  [529] 26 25 26 26 26 25 26 25 25 25 24 26 25 25 26 26 26 25 24 26 25 25 25 25
+##  [553] 26 26 26 25 25 25 26 27 25 26 26 25 24 26 25 25 25 26 26 25 25 26 26 26
+##  [577] 26 26 26 26 26 26 25 25 27 26 25 25 26 25 26 25 25 26 26 26 26 26 26 25
+##  [601] 26 26 25 26 26 27 26 26 26 26 25 25 25 26 25 25 26 25 25 26 25 26 26 26
+##  [625] 25 26 26 25 24 26 26 25 26 26 26 25 25 26 26 25 24 26 25 26 25 26 26 26
+##  [649] 26 26 25 26 26 25 27 26 25 26 26 26 26 27 24 26 26 25 26 25 25 24 24 26
+##  [673] 26 26 24 25 25 25 26 26 26 25 25 26 25 26 26 25 26 26 25 26 26 26 24 25
+##  [697] 25 24 26 27 26 26 26 26 26 25 25 26 25 24 25 24 26 26 26 26 26 25 26 25
+##  [721] 26 24 26 25 25 26 25 25 25 25 25 26 24 27 26 24 26 26 24 26 26 25 25 26
+##  [745] 26 26 25 26 25 26 25 25 25 25 26 26 26 26 26 26 24 26 25 26 26 25 27 25
+##  [769] 26 26 25 25 25 26 26 25 25 25 23 24 25 26 26 26 26 24 25 26 26 25 25 26
+##  [793] 26 26 26 26 24 25 26 26 24 27 25 24 26 26 25 26 25 27 26 25 26 26 26 26
+##  [817] 25 26 26 25 25 24 26 24 25 24 25 25 26 25 24 26 26 25 24 24 26 26 26 26
+##  [841] 26 26 24 26 26 26 26 26 26 26 26 26 25 26 24 26 25 26 25 25 26 25 25 26
+##  [865] 26 26 26 25 26 26 25 25 26 26 27 26 25 27 26 26 26 26 26 26 24 26 26 25
+##  [889] 25 26 25 27 25 26 26 26 26 26 25 25 26 26 26 27 25 25 26 26 26 26 25 27
+##  [913] 26 26 25 26 25 26 26 25 26 26 26 25 26 26 25 26 26 26 26 25 25 27 25 25
+##  [937] 25 25 25 25 26 26 24 26 26 25 26 26 25 24 26 25 25 26 25 26 25 26 26 26
+##  [961] 26 26 25 26 25 25 26 26 26 25 26 25 26 25 26 25 26 26 25 26 26 26 26 26
+##  [985] 26 26 26 25 25 26 26 25 26 26 26 25 25 25 26 26
+## 
+## $coefficients
+##                [,1]
+## (Intercept)    0.73
+## Tree_Height    0.28
+## Condition_Fair 1.68
+## Condition_Good 4.39
+## Condition_Poor 2.55
+```
+
+
+---
+
+### Categorical Response Variable
+
+
+```r
+samp_SRS &lt;- mutate(samp_SRS, B_Type = if_else(Functional_Type %in%
+                                      c("BD", "BE"),  1, 0)) 
+
+xsample &lt;- select(samp_SRS, Condition, Tree_Height) %&gt;%
+  as.data.frame()
+
+xpop &lt;- select(pop, names(xsample))
+
+greg(y = samp_SRS$B_Type, xsample = xsample, xpop = xpop,
+          pi = samp_SRS$pi, var_est = TRUE, datatype = "raw",
+     model = "logistic")
+```
+
+```
+## $pop_total
+## [1] 14599
+## 
+## $pop_mean
+## [1] 0.57
+## 
+## $pop_total_var
+## [1] 108705
+## 
+## $pop_mean_var
+## [1] 0.00017
+## 
+## $coefficients
+##   (Intercept) ConditionFair ConditionGood ConditionPoor   Tree_Height 
+##       -14.551        17.130        15.956        17.548        -0.033
+```
+
+---
+
+background-image: url("img/mases.001.png")
+background-position: left
+background-size: contain
+
+
+
+.pull-right[
+
+## Feedback Wanted
+
+* Still in development
+
+* Currently geared more toward use with US Forest Inventory and Analysis data
+
+* What's on your wish list?
+
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
