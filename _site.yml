@@ -6,9 +6,14 @@ navbar:
     - text: "Homepage"
       href: index.html
       icon: fa-home
+    - text: "Outline"
+      href: outline.html
+      icon: fa-calendar       
     - text: "Slides"
       icon: fa-area-chart
       menu:
+        - text: "Setting the Stage"
+          href: stage.html            
         - text: "Model-Assisted Estimation"
           href: data_setup.html      
         - text: "Estimator Deep Dive"
@@ -16,7 +21,10 @@ navbar:
         - text: "Case Studies"
           href: case_studies.html
         - text: "Applications in R with mase"
-          href: mase_R.html                    
+          href: mase_R.html 
+    - text: "About the Presenter"
+      href: about2.html
+      icon: fa-user-circle-o
   type: default       
 output:
   html_document:

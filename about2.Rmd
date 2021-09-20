@@ -1,0 +1,17 @@
+---
+title: "Kelly McConville"
+image: "kelly_mcconville-1.jpg"
+links:
+  - label: Website
+    url: "http://mcconville.rbind.io/"
+  - label: GitHub
+    url: "https://github.com/mcconvil"
+output:
+  postcards::trestles:
+    css: style.css
+---
+ 
+## Bio
+
+[Kelly McConville](http://mcconville.rbind.io/) is an Associate Professor of Statistics at [Reed College](https://www.reed.edu/math/) in Portland, Oregon.  Her methodological research involves incorporating novel modeling techniques into survey estimators.  She has active collaborations with the US Bureau of Labor Statistics and the US Forest Service Forest Inventory and Analysis Program and runs the Reed Forestry Data Science Research Lab.  In addition to her regular teaching duties, she has taught several continuing education short courses, webinars, and workshops on `R` and various data science and statistics topics.  
+

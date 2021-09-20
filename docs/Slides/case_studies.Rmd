@@ -39,10 +39,6 @@ background-position: left
 background-size: contain
 background-color: #e9ecef
 
-<style>
-.mauve {color: #AB505E;}
-</style>
-
 
 
 .pull-right[
