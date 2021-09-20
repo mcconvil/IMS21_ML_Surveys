@@ -32,9 +32,10 @@ a:hover {
 
 /*----------------ADDING WHITE SPACE-------------*/
 
+
 .title {
-  margin-top: 1em !important;
-  margin-bottom: 0.3em;
+  margin-top: 2em !important;
+  margin-bottom: 0.75em;
 }
 
 .section h1,
@@ -42,10 +43,9 @@ a:hover {
 .section h3, 
 .section h4, 
 .section h5 { 
-  padding-top: 4.5em !important; /*adding so much padding because theme adds a margin-top: -65px by default */
+  padding-top: 3em !important; /*adding so much padding because theme adds a margin-top: -65px by default */
   margin-bottom: 0.75em;
 }
-
 
 /*----------------NAVBAR ---------------*/
 .navbar-default {

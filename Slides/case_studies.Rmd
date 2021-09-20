@@ -116,11 +116,8 @@ knitr::include_graphics("img/fs.png")
 knitr::include_graphics("img/FIA_EDA.jpeg")
 ```
 
-<!-- --- -->
 
-<!-- ```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'} -->
-<!-- knitr::include_graphics("img/fs.png") -->
-<!-- ``` -->
+
 
 <!-- ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/) -->
 
@@ -319,15 +316,13 @@ knitr::include_graphics("img/bls2.png")
 
 > **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
 
+**Goal**: Estimate the total number of bartenders in the US.
+
 .pull-left[
 
 
 
-Maintain many different surveys:
-
-* Job Openings and Labor Turnover Survey
-* Occupational Employment and Wage Statistics
-
+Complex survey data from the BLS Occupational Employment Statistics Survey
 
 
 
@@ -362,12 +357,203 @@ knitr::include_graphics("img/bls2.png")
 
 > **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
 
+**Goal**: Estimate the total number of bartenders in the US.
+
+--
+
+.mauve[What assisting model should we use?]
 
 
-```{r, echo = FALSE, out.width= "95%"}
-knitr::include_graphics("img/tree.png")
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
 ```
 
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+**Goal**: Estimate the total number of certain job types.
+
+
+.mauve[Why should we not use linear regression?]
+
+--
+
+* We have mostly categorical variables with many categories.
+
+--
+
+* The industry code is likely important and most bartenders probably only fall into a few of the industries.
+
+--
+
+* Additive model is too simple and the fully interactive is too complex with not enough data in many sub-groups.
+
+
+
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
+```
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+Use regression trees instead!
+
+
+```{r, echo = FALSE, out.width= "50%", fig.align='center'}
+knitr::include_graphics("img/trees.001.jpeg")
+```
+
+* Recursively split sample into two groups based on an auxiliary variable.
+
+* Industry has 24 categories.
+    + Industry #71:  Arts, Entertainment, and Recreation
+    + Industry #72:  Accommodation and Food Services
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
+```
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+```{r, echo = FALSE, out.width= "60%", fig.align='center'}
+knitr::include_graphics("img/trees.002.jpeg")
+```
+
+* .mauve[Recursively] split sample into two groups based on an auxiliary variable.
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
+```
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+```{r, echo = FALSE, out.width= "100%", fig.align='center'}
+knitr::include_graphics("img/trees.004.jpeg")
+```
+
+* .mauve[Recursively] split sample into two groups based on an auxiliary variable.
+
+
+---
+
+
+```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'}
+knitr::include_graphics("img/bls2.png")
+```
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+```{r, echo = FALSE, out.width= "60%", fig.align='center'}
+knitr::include_graphics("img/trees.003.jpeg")
+```
+
+At each end node, the estimator is given by the survey-weighted mean.
+
+---
+
+### The Regression Tree Estimator
+
+$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$
+
+Let $Q = \{ B_{1}, B_{2}, \ldots, B_{q} \}$ be the of partitioning boxes from the tree.
+
+--
+
+For $\boldsymbol{x} \in B_k$:
+
+\begin{align*}
+    \hat{m}({\boldsymbol x})=
+   \widehat{\#}(B_{k})^{-1} \sum_{i \in s} \pi_{i}^{-1} y_i I ({\boldsymbol x}_i \in B_{k})
+\end{align*}
+
+where
+
+\begin{align*}
+   \widehat{\#}(B_{k}) = \sum_{i \in s} \pi_{i}^{-1} I ({\boldsymbol x}_i \in B_{k}).
+\end{align*}
+
+---
+
+### The Regression Tree Estimator
+
+* Splits are selected based on a permutation test.
+
+* Tree stops splitting based on a p-value threshold or minimum end node size.
+
+* R package for regression trees built on complex survey data: [rpms](https://cran.r-project.org/web/packages/rpms/index.html)
+    + Written by [Daniell Toth](https://scholar.google.com/citations?user=1lUPZikAAAAJ)
+
+---
+
+### The Regression Tree Estimator
+
+### Calibration
+
+Can linearize the trees:
+
+$$\hat{m}({\bf x}) = \tilde{\mu}_{n1}  I({\bf x} \in B_{n1}) + \tilde{\mu}_{n2} I({\bf x} \in B_{n2}) + \ldots + \tilde{\mu}_{nq}  I({\bf x} \in B_{nq})$$
+* Regression tree is .mauve[calibrated] to population totals of the end nodes:
+
+$$\sum_{j \in U} I({ \bf x}_j \in B_{nk}) =   \sum_{j \in s} \tilde{w}_j I({ \bf x}_j \in B_{nk})$$
+
+
+----   
+
+#### Post-stratification
+
+* Post-stratified estimator: Generalized regression estimator where the assisting model is the group mean model
+
+--
+
+* Regression tree estimator: End nodes of the tree are a set of .mauve[predictive] post-strata!
+
+---
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+> **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+**Goal**: Estimate the total number of certain job types.
+
+```{r, echo = FALSE, out.width='90%', fig.pos='center'}
+knitr::include_graphics("img/bls_results.001.jpeg")
+```
 
 ---
 

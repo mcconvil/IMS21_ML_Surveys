@@ -3,7 +3,7 @@
   <head>
     <title>Case Studies</title>
     <meta charset="utf-8" />
-    <script src="libsSlides/header-attrs-2.10/header-attrs.js"></script>
+    <script src="libsSlides/header-attrs-2.11/header-attrs.js"></script>
     <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="cssSlides/styling.css" type="text/css" />
     <link rel="stylesheet" href="cssSlides/fonts.css" type="text/css" />
@@ -90,11 +90,8 @@ Quasi-systematic sample of ground plots
 
 &lt;img src="img/FIA_EDA.jpeg" width="1736" /&gt;
 
-&lt;!-- --- --&gt;
 
-&lt;!-- ```{r, echo = FALSE, out.width= "15%", out.extra='style="float:left; padding:10px"'} --&gt;
-&lt;!-- knitr::include_graphics("img/fs.png") --&gt;
-&lt;!-- ``` --&gt;
+
 
 &lt;!-- ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/) --&gt;
 
@@ -250,15 +247,13 @@ class: center
 
 &gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
 
+**Goal**: Estimate the total number of bartenders in the US.
+
 .pull-left[
 
 
 
-Maintain many different surveys:
-
-* Job Openings and Labor Turnover Survey
-* Occupational Employment and Wage Statistics
-
+Complex survey data from the BLS Occupational Employment Statistics Survey
 
 
 
@@ -291,10 +286,183 @@ Quarterly Census of Employment and Wages:
 
 &gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
 
+**Goal**: Estimate the total number of bartenders in the US.
+
+--
+
+.mauve[What assisting model should we use?]
 
 
-&lt;img src="img/tree.png" width="95%" /&gt;
+---
 
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+**Goal**: Estimate the total number of certain job types.
+
+
+.mauve[Why should we not use linear regression?]
+
+--
+
+* We have mostly categorical variables with many categories.
+
+--
+
+* The industry code is likely important and most bartenders probably only fall into a few of the industries.
+
+--
+
+* Additive model is too simple and the fully interactive is too complex with not enough data in many sub-groups.
+
+
+
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+Use regression trees instead!
+
+
+&lt;img src="img/trees.001.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
+
+* Recursively split sample into two groups based on an auxiliary variable.
+
+* Industry has 24 categories.
+    + Industry #71:  Arts, Entertainment, and Recreation
+    + Industry #72:  Accommodation and Food Services
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+&lt;img src="img/trees.002.jpeg" width="60%" style="display: block; margin: auto;" /&gt;
+
+* .mauve[Recursively] split sample into two groups based on an auxiliary variable.
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+&lt;img src="img/trees.004.jpeg" width="100%" style="display: block; margin: auto;" /&gt;
+
+* .mauve[Recursively] split sample into two groups based on an auxiliary variable.
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+
+
+&lt;img src="img/trees.003.jpeg" width="60%" style="display: block; margin: auto;" /&gt;
+
+At each end node, the estimator is given by the survey-weighted mean.
+
+---
+
+### The Regression Tree Estimator
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+
+Let `\(Q = \{ B_{1}, B_{2}, \ldots, B_{q} \}\)` be the of partitioning boxes from the tree.
+
+--
+
+For `\(\boldsymbol{x} \in B_k\)`:
+
+`\begin{align*}
+    \hat{m}({\boldsymbol x})=
+   \widehat{\#}(B_{k})^{-1} \sum_{i \in s} \pi_{i}^{-1} y_i I ({\boldsymbol x}_i \in B_{k})
+\end{align*}`
+
+where
+
+`\begin{align*}
+   \widehat{\#}(B_{k}) = \sum_{i \in s} \pi_{i}^{-1} I ({\boldsymbol x}_i \in B_{k}).
+\end{align*}`
+
+---
+
+### The Regression Tree Estimator
+
+* Splits are selected based on a permutation test.
+
+* Tree stops splitting based on a p-value threshold or minimum end node size.
+
+* R package for regression trees built on complex survey data: [rpms](https://cran.r-project.org/web/packages/rpms/index.html)
+    + Written by [Daniell Toth](https://scholar.google.com/citations?user=1lUPZikAAAAJ)
+
+---
+
+### The Regression Tree Estimator
+
+### Calibration
+
+Can linearize the trees:
+
+`$$\hat{m}({\bf x}) = \tilde{\mu}_{n1}  I({\bf x} \in B_{n1}) + \tilde{\mu}_{n2} I({\bf x} \in B_{n2}) + \ldots + \tilde{\mu}_{nq}  I({\bf x} \in B_{nq})$$`
+* Regression tree is .mauve[calibrated] to population totals of the end nodes:
+
+`$$\sum_{j \in U} I({ \bf x}_j \in B_{nk}) =   \sum_{j \in s} \tilde{w}_j I({ \bf x}_j \in B_{nk})$$`
+
+
+----   
+
+#### Post-stratification
+
+* Post-stratified estimator: Generalized regression estimator where the assisting model is the group mean model
+
+--
+
+* Regression tree estimator: End nodes of the tree are a set of .mauve[predictive] post-strata!
+
+---
+
+### Case Study 2: [US Bureau of Labor Statistics](https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
+
+**Goal**: Estimate the total number of certain job types.
+
+&lt;img src="img/bls_results.001.jpeg" width="90%" /&gt;
 
 ---
 
