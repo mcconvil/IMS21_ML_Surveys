@@ -46,3 +46,20 @@ p.caption {
 }
 
 
+/******************
+ * Coloured text
+ ****************/
+
+.mauve {color: #AB505E;}
+.graygreen {color: #607873;}
+.mustardseet {color: #E6AC27;}
+.mustardseed {color: #E6AC27;}
+.orange2 {color: #BF4D28;}
+
+/******************
+ * Changing font size
+ ****************/
+
+.smaller-font {
+  font-size: 12px;
+}

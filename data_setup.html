@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Model Assisted Estimation</title>
+    <title>Model-Assisted Estimation</title>
     <meta charset="utf-8" />
-    <script src="libsSlides/header-attrs-2.10/header-attrs.js"></script>
+    <script src="libsSlides/header-attrs-2.11/header-attrs.js"></script>
     <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="cssSlides/styling.css" type="text/css" />
     <link rel="stylesheet" href="cssSlides/fonts.css" type="text/css" />
@@ -25,7 +25,7 @@ background-color: #e9ecef
 
 .pull-right[
 
-## Model Assisted Estimation
+## Model-Assisted Estimation
 
 
 #### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
@@ -135,6 +135,8 @@ A sample is taken and you have access to the following data for estimation.
 
 &lt;img src="img/all_data.jpeg" width="1489" /&gt;
 
+--
+
 One option: `\(\hat{t}_y = \sum_{i \in s} \frac{y_i}{\pi_i}\)`
 
 (Horvitz-Thompson Estimator)
@@ -146,7 +148,7 @@ class: center
 
 ### Estimation Set-up
 
-Another option: Use the sample to **build** a model and then **predict** `\(y\)` over all the population units.
+Another option: Use the sample to .orange2[**build**] a model and then .orange2[**predict**] `\(y\)` over all the population units.
 
 &lt;img src="img/model_fits.jpeg" width="1484" /&gt;
 
@@ -162,7 +164,7 @@ Estimator: `\(\hat{t}_y = \sum_{i \in s} y_i + \sum_{i \in U-s} \hat{m}(\boldsym
 
 &lt;img src="img/model_fits.jpeg" width="1484" /&gt;
 
-Estimator can be rather biased when the model is misspecified.
+Estimator can be rather .orange2[biased] when the model is misspecified.
 
 
 

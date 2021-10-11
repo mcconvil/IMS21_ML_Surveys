@@ -26,7 +26,7 @@ background-color: #e9ecef
 
 
 &lt;style&gt;
-.mauve {color: #AB505E;}
+.orange2 {color: #AB505E;}
 &lt;/style&gt;
 
 &lt;!-- Cite: https://unsplash.com/photos/W-vPMF3vUK0 --&gt;
@@ -211,11 +211,11 @@ $$
 
 --
 
-Also goes by .mauve[The Empirical Difference Estimator] and .mauve[The Model-Assisted Estimator]
+Also goes by .orange2[The Empirical Difference Estimator] and .orange2[The Model-Assisted Estimator]
 
 --
 
-Is .mauve[asymptotically] unbiased: `\(E(\hat{t}_y) \rightarrow t_y\)`
+Is .orange2[asymptotically] unbiased: `\(E(\hat{t}_y) \rightarrow t_y\)`
 
 --
 
@@ -313,7 +313,7 @@ Under the linear model, can be written as:
 
 --
 
-Survey weights, `\(w_i\)`'s, .mauve[don't depend] on the `\(y_i\)`'s!
+Survey weights, `\(w_i\)`'s, .orange2[don't depend] on the `\(y_i\)`'s!
 
 --
 
@@ -321,7 +321,7 @@ Survey weights, `\(w_i\)`'s, .mauve[don't depend] on the `\(y_i\)`'s!
 
 --
 
-Estimator is also .mauve[calibrated] to the auxiliary data:
+Estimator is also .orange2[calibrated] to the auxiliary data:
 
 `\begin{align*}
 \sum_{i \in s} w_i \boldsymbol{x}_i = \sum_{i \in U} \boldsymbol{x}_i
@@ -343,14 +343,14 @@ Issues with the linear assisting model:
 
 --
 
-* For mis-specified models, don't get much (if any) gains in precision
+* For misspecified models, don't get much (if any) gains in precision
 
 
 ---
 
 ### The Assisting Model
 
-How should I pick .mauve[which] assisting model to use?
+How should I pick .orange2[which] assisting model to use?
 
 --
 
@@ -366,7 +366,7 @@ Remember that the model-assisted estimator is asymptotically unbiased
 
 --
 
-BUT the .mauve[precision] of the estimator depends on the predictive quality of model!
+BUT the .orange2[precision] of the estimator depends on the predictive quality of model!
 
 
 `$$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - \hat{m}(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - \hat{m}(\boldsymbol{x}_j)\right)}{\pi_j}$$`

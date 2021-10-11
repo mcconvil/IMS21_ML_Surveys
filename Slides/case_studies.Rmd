@@ -99,7 +99,7 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
 --
 
@@ -117,10 +117,10 @@ knitr::include_graphics("img/FIA_EDA.jpeg")
 
 <!-- ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/) -->
 
-<!-- **Goal**: Estimate .mauve[MANY] finite population quantities! -->
+<!-- **Goal**: Estimate .orange2[MANY] finite population quantities! -->
 
 
-<!-- Use linear assisting model but estimate coefficients with the .mauve[elastic net]: -->
+<!-- Use linear assisting model but estimate coefficients with the .orange2[elastic net]: -->
 
 
 <!-- \begin{aligned} -->
@@ -136,9 +136,9 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
-Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+Use linear assisting model but estimate coefficients with the .orange2[elastic net]:
 
 
 ```{r, echo = FALSE, out.width = '80%'}
@@ -155,9 +155,9 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
-Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+Use linear assisting model but estimate coefficients with the .orange2[elastic net]:
 
 
 ```{r, echo = FALSE, out.width = '80%'}
@@ -173,9 +173,9 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
-Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+Use linear assisting model but estimate coefficients with the .orange2[elastic net]:
 
 
 ```{r, echo = FALSE, out.width = '80%'}
@@ -191,9 +191,9 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
-Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+Use linear assisting model but estimate coefficients with the .orange2[elastic net]:
 
 
 ```{r, echo = FALSE, out.width = '80%'}
@@ -209,9 +209,9 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
-Use linear assisting model but estimate coefficients with the .mauve[elastic net]:
+Use linear assisting model but estimate coefficients with the .orange2[elastic net]:
 
 
 ```{r, echo = FALSE, out.width = '80%'}
@@ -229,7 +229,7 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
 --
 
@@ -278,7 +278,7 @@ knitr::include_graphics("img/fs.png")
 
 ###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
 
-**Goal**: Estimate .mauve[MANY] finite population quantities!
+**Goal**: Estimate .orange2[MANY] finite population quantities!
 
 ```{r, echo = FALSE}
 dat <- data.frame(name = c("Horvitz-Thompson", "FIA", "Elastic Net"),
@@ -312,7 +312,8 @@ knitr::include_graphics("img/bls2.png")
 
 > **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
 
-**Goal**: Estimate the total number of bartenders in the US.
+**Goal**: Estimate the total number of certain job types.
+
 
 .pull-left[
 
@@ -353,11 +354,12 @@ knitr::include_graphics("img/bls2.png")
 
 > **Mission**: "Measures labor market activity, working conditions, price changes, and productivity in the U.S. economy to support public and private decision making."
 
-**Goal**: Estimate the total number of bartenders in the US.
+**Goal**: Estimate the total number of certain job types.
+
 
 --
 
-.mauve[What assisting model should we use?]
+.orange2[What assisting model should we use?]
 
 
 ---
@@ -375,7 +377,7 @@ knitr::include_graphics("img/bls2.png")
 **Goal**: Estimate the total number of certain job types.
 
 
-.mauve[Why should we not use linear regression?]
+.orange2[Why should we not use linear regression?]
 
 --
 
@@ -437,7 +439,7 @@ knitr::include_graphics("img/bls2.png")
 knitr::include_graphics("img/trees.002.jpeg")
 ```
 
-* .mauve[Recursively] split sample into two groups based on an auxiliary variable.
+* .orange2[Recursively] split sample into two groups based on an auxiliary variable.
 
 
 ---
@@ -458,7 +460,7 @@ knitr::include_graphics("img/bls2.png")
 knitr::include_graphics("img/trees.004.jpeg")
 ```
 
-* .mauve[Recursively] split sample into two groups based on an auxiliary variable.
+* .orange2[Recursively] split sample into two groups based on an auxiliary variable.
 
 
 ---
@@ -479,7 +481,7 @@ knitr::include_graphics("img/bls2.png")
 knitr::include_graphics("img/trees.003.jpeg")
 ```
 
-At each end node, the estimator is given by the survey-weighted mean.
+At each end node, the estimator is given by the .orange2[survey-weighted mean].
 
 ---
 
@@ -519,17 +521,24 @@ where
 
 ### The Regression Tree Estimator
 
-### Calibration
+#### Calibration
 
 Can linearize the trees:
 
 $$\hat{m}({\bf x}) = \tilde{\mu}_{n1}  I({\bf x} \in B_{n1}) + \tilde{\mu}_{n2} I({\bf x} \in B_{n2}) + \ldots + \tilde{\mu}_{nq}  I({\bf x} \in B_{nq})$$
-* Regression tree is .mauve[calibrated] to population totals of the end nodes:
+
+--
+
+
+* Regression tree is .orange2[calibrated] to population totals of the end nodes:
 
 $$\sum_{j \in U} I({ \bf x}_j \in B_{nk}) =   \sum_{j \in s} \tilde{w}_j I({ \bf x}_j \in B_{nk})$$
 
 
 ----   
+
+--
+
 
 #### Post-stratification
 
@@ -537,7 +546,7 @@ $$\sum_{j \in U} I({ \bf x}_j \in B_{nk}) =   \sum_{j \in s} \tilde{w}_j I({ \bf
 
 --
 
-* Regression tree estimator: End nodes of the tree are a set of .mauve[predictive] post-strata!
+* Regression tree estimator: End nodes of the tree are a set of .orange2[predictive] post-strata!
 
 ---
 
@@ -575,3 +584,10 @@ background-color: #CFF09E
 
 #### Analyze the resulting survey weights.
 
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+## Questions?

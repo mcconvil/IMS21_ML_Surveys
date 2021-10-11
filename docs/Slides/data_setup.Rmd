@@ -1,5 +1,5 @@
 ---
-title: Model Assisted Estimation
+title: Model-Assisted Estimation
 header-includes:
    - \usepackage{xcolor}
 output:
@@ -43,7 +43,7 @@ background-color: #e9ecef
 
 .pull-right[
 
-## Model Assisted Estimation
+## Model-Assisted Estimation
 
 
 #### A Data Science Approach to Official Statistics Estimation: Leveraging the Power of Machine Learning Models
@@ -165,6 +165,8 @@ A sample is taken and you have access to the following data for estimation.
 knitr::include_graphics("img/all_data.jpeg")
 ```
 
+--
+
 One option: $\hat{t}_y = \sum_{i \in s} \frac{y_i}{\pi_i}$
 
 (Horvitz-Thompson Estimator)
@@ -176,7 +178,7 @@ class: center
 
 ### Estimation Set-up
 
-Another option: Use the sample to **build** a model and then **predict** $y$ over all the population units.
+Another option: Use the sample to .orange2[**build**] a model and then .orange2[**predict**] $y$ over all the population units.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("img/model_fits.jpeg")
@@ -196,7 +198,7 @@ Estimator: $\hat{t}_y = \sum_{i \in s} y_i + \sum_{i \in U-s} \hat{m}(\boldsymbo
 knitr::include_graphics("img/model_fits.jpeg")
 ```
 
-Estimator can be rather biased when the model is misspecified.
+Estimator can be rather .orange2[biased] when the model is misspecified.
 
 
 

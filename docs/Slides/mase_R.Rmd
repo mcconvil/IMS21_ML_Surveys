@@ -8,6 +8,7 @@ output:
     lib_dir: libsSlides
     self_contained: false
     nature:
+#      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -20,7 +21,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, 
                       warning = FALSE, fig.width = 6,
                       fig.height = 4,
-                      fig.retina = 3)
+                      fig.retina = 3,
+                      cache = TRUE)
 
 options(digits=2, scipen = 3)
 
@@ -365,11 +367,76 @@ background-size: contain
 
 ---
 
-background-image: url("img/mases.001.png")
+background-image: url("img/nadine-shaabana-qAcqRgWQemM-unsplash.jpg")
 background-position: left
 background-size: contain
 
-Additional Materials:  
+.pull-right[
 
-Nonresponse:
-More complex designs:
+#### Useful Resources  
+
+[`survey` package](http://r-survey.r-forge.r-project.org/survey/): Very extensive package for analyzing complex survey data!
+
+
+[Model-Assisted Survey Estimation with Modern Prediction Techniques](https://projecteuclid.org/journals/statistical-science/volume-32/issue-2/Model-Assisted-Survey-Estimation-with-Modern-Prediction-Techniques/10.1214/16-STS589.full) by Jay Breidt and Jean Opsomer: Wonderful overview article
+
+
+[Model Assisted Survey Sampling](https://www.springer.com/us/book/9780387406206) by Carl-Erik Särndal, Bengt Swensson, and Jan Wretman: Seminar textbook
+
+
+]
+
+---
+
+class: smaller-font
+
+#### References
+
+
+
+* Breidt, F. J., G. Claeskens, and J. D. Opsomer. Model-assisted estimation for complex surveys using penalised splines. Biometrika, 92:831–846, 2005.
+
+* Breidt, F. J. and J. D. Opsomer. Model-assisted survey estimation with modern prediction techniques. Statistical Science, 32:190-205, 2017.
+
+* Breidt, F. J. and J. D. Opsomer. Local polynomial regression estimators in survey sampling. Annals of Statistics, 28:1026–1053, 2000.
+
+
+* Goga, C. Variance reduction in surveys with auxiliary information: a nonparametric approach involving regression splines. The Canadian Journal of Statistics/La revue canadienne de statistique, 33(2), 163-180, 2005.
+
+
+* Horvitz, D. G., and Thompson, D. J.  A generalization of sampling without replacement from a finite universe. Journal of the American statistical Association, 47(260), 663-685, 1952.
+
+
+* Lehtonen, R. and Veijanen, A. Logistic generalized regression estimators. Survey Methodology 24, 51-55, 1998.
+
+* McConville, Moisen, G. G, Frescino, T. S. A Tutorial in Model-Assisted Estimation with Application to Forest Inventory. Forests. 11:2, 244, 2020.
+
+* McConville, K. S., Breidt, F. J., Lee, T., & Moisen, G. G.  Model-assisted survey regression estimation with the lasso. Journal of Survey Statistics and Methodology, 5(2), 131-158, 2017.
+
+* McConville, K. S. and F. J. Breidt. Survey design asymptotics for the model-assisted penalised spline regression estimator. Journal of Nonparametric Statistics, 25:745–763, 2013.
+
+* McConville, K.S., Tang, B., Zhu, G., 
+  Cheung, S. and S. Li. mase:
+  Model-Assisted Survey Estimation. R package
+  version 0.1.2
+  https://cran.r-project.org/package=mase, 2018.
+
+* McConville, K. S. and Toth, D. Automated selection of post‐strata using a model‐assisted regression tree estimator. Scandinavian Journal of Statistics, 42, 2: 389–413, 2019.
+
+
+* Montanari, G. E. and M. G. Ranalli. Nonparametric model calibration estimation in survey sampling. Journal of the American Statistical Association, 100(472):1429–1442, 2005.
+
+
+* Sarndal, C. E., B. Swensson, and J. Wretman. Model-Assisted Survey Sampling. Springer-Verlag, New York, 1992.
+
+
+* Tibshirani, R. "Regression shrinkage and selection via the lasso." Journal of the Royal Statistical Society: Series B (Methodological) 58.1 267-288, 1996.
+
+
+* Toth, D. and J. Eltinge. Building consistent regression trees from complex sample data. Journal of the American Statistical Association, 106:1626–1636, 2011.
+
+* Toth, D. rpms: Recursive
+  Partitioning for Modeling Survey Data. R
+  package version 0.5.1.
+  https://CRAN.R-project.org/package=rpms, 2021.
+  

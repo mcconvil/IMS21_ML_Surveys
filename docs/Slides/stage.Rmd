@@ -33,7 +33,7 @@ library(tidyverse)
 ```
 
 class: center, middle
-background-image: url("img/olena-sergienko-3BlVILvh9hM-unsplash.jpg")
+background-image: url("img/andy-holmes-oEIFOoC3gi0-unsplash.jpg")
 background-position: left
 background-size: contain
 background-color: #e9ecef
@@ -75,6 +75,15 @@ background-color: #CFF09E
 
 ---
 
+
+class: center, middle
+background-image: url("img/brydon-mccluskey-Cp0reX9APUA-unsplash.jpg")
+background-position: left
+background-size: contain
+background-color: #e9ecef
+
+.pull-right[
+
 ### Roadmap of the Workshop
 
 <span style="color: #E6AC27;">10:00 am - 10:15 am ET</span> -- [Set the Stage](https://mcconvil.github.io/IMS21_ML_Surveys/stage.html)
@@ -93,3 +102,4 @@ background-color: #CFF09E
 
 <span style="color: #E6AC27;">1:15 pm - 2:00 pm ET</span> -- [Applications with `R`](https://mcconvil.github.io/IMS21_ML_Surveys/mase_R.html)
 
+]
