@@ -1,0 +1,65 @@
+/* hyperlinks */
+a, a > code {
+  color: #AB505E;
+}
+
+
+/* Create colors for text */
+
+
+
+
+.remark-slide-content {
+  background-color: #e9ecef;
+}
+
+
+.inverse {
+  background-color: #91204D;
+  text-shadow: 0 0 0;
+}
+
+
+/* in line code */
+
+
+.remark-inline-code {
+  color: rgba(192, 41, 66, 1);
+}
+
+
+
+/******************
+ * Coloured content boxes
+ ****************/
+.content-box { 
+    box-sizing: border-box;
+    background-color: rgba(205, 179, 128, .3);
+}
+
+.bright-orange { color: #FA6900;}
+
+/* caption size */
+
+p.caption {
+  font-size: 0.7em;
+}
+
+
+/******************
+ * Coloured text
+ ****************/
+
+.mauve {color: #AB505E;}
+.graygreen {color: #607873;}
+.mustardseet {color: #E6AC27;}
+.mustardseed {color: #E6AC27;}
+.orange2 {color: #BF4D28;}
+
+/******************
+ * Changing font size
+ ****************/
+
+.smaller-font {
+  font-size: 12px;
+}

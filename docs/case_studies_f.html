@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Case Studies</title>
+    <meta charset="utf-8" />
+    <script src="libsSlides/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="cssSlides/styling.css" type="text/css" />
+    <link rel="stylesheet" href="cssSlides/fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: center, middle, hide_logo
+background-image: url("img/casestudies.jpeg")
+background-position: left
+background-size: contain
+background-color: #e9ecef
+
+
+
+.pull-right[
+
+## Études de cas
+
+
+#### Approche de science des données pour l’estimation des statistiques officielles : Exploiter le pouvoir des modèles d'apprentissage automatique
+
+#### Symposium international sur les questions de méthodologie de 2021
+
+#### Kelly McConville
+
+#### 14 octobre 2021
+
+]
+
+
+---
+
+class: center
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+&gt; **Mission** : « Dresser et tenir à jour un inventaire complet et une analyse de l'état actuel et prospectif des ressources renouvelables que constituent les forêts et les grands pâturages libres des États-Unis ainsi que des besoins en la matière. »
+
+
+
+Analyse axée sur le comté de Daggett, dans l’Utah :
+
+&lt;img src="img/data_needs2.004.jpeg" width="1402" /&gt;
+
+.pull-left[
+
+Échantillonnage quasi systématique des parcelles terrestres
+
+]
+
+
+.pull-right[
+
+**Multiples** couches de données de télédétection!
+
+]
+
+---
+
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+** But** : Estimer les chiffres de .mauve[NOMBREUSES] populations finies!
+
+--
+
+* Veut un modèle simple.
+--
+
+* A plusieurs couches de données auxiliaires.
+
+&lt;img src="img/FIA_EDA.jpeg" width="1736" /&gt;
+
+
+
+
+&lt;!-- ###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis) (https://www.fia.fs.fed.us/about/about_us/)] --&gt;
+
+&lt;!-- **But** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies! --&gt;
+
+
+&lt;!-- Utiliser un modèle d’assistance linéaire, mais estimer les coefficients à l'aide du .orange2[filet élastique] : --&gt;
+
+
+&lt;!-- \begin{aligned} --&gt;
+&lt;!-- \boldsymbol{\hat{\beta}} &amp;= \underset{\boldsymbol{\beta}}{\arg\min}  \left\{ \sum_{i \in s} \frac{(y_i - \boldsymbol{x}_i^T \boldsymbol{\beta})^2}{ \pi_i} + \lambda \left[ \alpha \sum_{j=1}^p \left|\beta_j\right| + (1-\alpha) \sum_{j=1}^p \beta_j^2\right] \right\} --&gt;
+&lt;!-- \end{aligned} --&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+&lt;!-- ###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis) (https://www.fia.fs.fed.us/about/about_us/)] --&gt;
+
+&lt;!-- **But** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies! --&gt;
+
+
+&lt;!-- Utiliser un modèle d’assistance linéaire, mais estimer les coefficients à l'aide du .orange2[filet élastique]:
+
+
+&lt;img src="img/elasticnet.png" width="80%" /&gt;
+
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Case Study 1: [US Forest Inventory and Analysis Program](https://www.fia.fs.fed.us/about/about_us/)
+
+**Goal**: Estimate .orange2[MANY] finite population quantities!
+
+Use linear assisting model but estimate coefficients with the .orange2[elastic net]:
+
+
+&lt;img src="img/penalty.png" width="80%" /&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+** Objectif** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies!
+
+Utiliser un modèle d’assistance linéaire, mais estimer les coefficients à l'aide du .orange2[filet élastique]:
+
+
+&lt;img src="img/lasso.png" width="80%" /&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+** Objectif** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies!
+
+Utiliser un modèle d’assistance linéaire, mais estimer les coefficients à l'aide du .orange2[filet élastique]:
+
+
+&lt;img src="img/ridge.png" width="80%" /&gt;
+
+---
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+** Objectif** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies!
+
+Utiliser un modèle d’assistance linéaire, mais estimer les coefficients à l'aide du .orange2[filet élastique]:
+
+
+&lt;img src="img/alpha.png" width="80%" /&gt;
+
+
+
+---
+
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+** Objectif** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies!
+
+--
+
+.center[**Pour le total d’arbres par acre**]
+
+--
+
+.pull-left[
+
+**Certaines variables explicatives** :
+
+* Indice de végétation par différence normalisée
+* Pente
+* Rapport de combustion normalisé
+* Élévation
+* Pente : Superficies forestières/non forestières
+
+
+]
+
+--
+
+.pull-right[
+
+**Variables explicatives non sélectionnées** :
+
+* Probabilité forestière
+* Degré de positionnement à l'Est
+* Probabilité forestière : Superficies forestières/non forestières
+*  Indice de végétation par différence normalisée : Superficies forestières/non forestières
+* Rapport de combustion normalisé : Superficies forestières/non forestières
+* Élévation : Superficies forestières/non forestières
+* Degré de positionnement à l’Est : Superficies forestières/non forestières
+
+
+]
+
+
+---
+
+class: center
+
+&lt;img src="img/fs.png" width="15%" style="float:left; padding:10px" /&gt;
+
+###  Étude de cas 1 : [Forest Inventory and Analysis Program (programme d’inventaire et d’analyse des forêts des États-Unis)]
+
+** Objectif** : Estimer les chiffres de .orange2[NOMBREUSES] populations finies!
+
+&lt;img src="case_studies_files/figure-html/unnamed-chunk-17-1.png" width="432" /&gt;
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+**But** : Estimer le nombre total de certains types d'emplois.
+
+
+.pull-left[
+
+
+
+Données d’enquête complexes tirées de l’Occupational Employment Statistics Survey [enquête statistique sur les professions des salariés]
+
+
+
+
+]
+
+
+
+.pull-right[
+
+Quarterly Census of Employment and Wages [recensement trimestriel des emplois et salaires] :
+
+* Catégorie de taille
+
+* Renseignements géographiques
+
+* Type d’industrie
+
+* S'agit-il d’une entreprise à établissements multiples?
+
+]
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+**But** : Estimer le nombre total de certains types d'emplois.
+
+
+--
+
+.orange2[Quel modèle d’assistance devrait-on utiliser?]
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+**But** : Estimer le nombre total de certains types d'emplois.
+
+
+.orange2[Pourquoi ne devrait-on pas utiliser la régression linéaire?]
+
+--
+
+* Pour bon nombre de catégories, nous disposons surtout de variables catégoriques.
+
+--
+
+* Le code d’industrie est vraisemblablement important et la plupart des types d'emplois appartiennent sans doute à seulement quelques-unes des industries.
+
+--
+
+* Le modèle additif est trop simple et le modèle parfaitement interactif est trop complexe compte tenu de la quantité insuffisante de données dans plusieurs sous-groupes.
+
+
+
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+Utilisez plutôt des arbres de régression!
+
+
+&lt;img src="img/trees.001.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
+
+* Fractionner de façon récursive l’échantillon en deux groupes selon une variable auxiliaire.
+
+* L’industrie comprend 24 catégories.
+    + Industrie #71 :  Arts, spectacles et loisirs
+    + Industry #72 :  Services d’hébergement et de restauration
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+
+
+&lt;img src="img/trees.002.jpeg" width="60%" style="display: block; margin: auto;" /&gt;
+
+* Fractionner .orange2[de façon récursive] l’échantillon en deux groupes selon une variable auxiliaire.
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+
+
+&lt;img src="img/trees.004.jpeg" width="100%" style="display: block; margin: auto;" /&gt;
+
+* Fractionner .orange2[de façon récursive] l’échantillon en deux groupes selon une variable auxiliaire.
+
+
+---
+
+
+&lt;img src="img/bls2.png" width="15%" style="float:left; padding:10px" /&gt;
+
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+
+
+&lt;img src="img/trees.003.jpeg" width="60%" style="display: block; margin: auto;" /&gt;
+
+À chaque nœud d’extrémité, l’estimateur est fourni par la .orange2[moyenne pondérée selon les données d’enquête].
+
+---
+
+### L’estimateur par arbre de régression
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+
+Laisser `\(Q = \{ B_{1}, B_{2}, \ldots, B_{q} \}\)` être les compartiments de partition de l’arbre.
+
+--
+
+Pour `\(\boldsymbol{x} \in B_k\)`:
+
+`\begin{align*}
+    \hat{m}({\boldsymbol x})=
+   \widehat{\#}(B_{k})^{-1} \sum_{i \in s} \pi_{i}^{-1} y_i I ({\boldsymbol x}_i \in B_{k})
+\end{align*}`
+
+où
+
+`\begin{align*}
+   \widehat{\#}(B_{k}) = \sum_{i \in s} \pi_{i}^{-1} I ({\boldsymbol x}_i \in B_{k}).
+\end{align*}`
+
+---
+
+### L’estimateur par arbre de régression
+
+* Les partitions sont sélectionnées en fonction de critères de permutation.
+
+* L’arbre arrête la partition en fonction d’un seuil de valeur p ou d’une taille minimum de nœud d’extrémité.
+
+* Le module R pour les arbres de régression repose sur des données d’enquête complexe : [rpms](https://cran.r-project.org/web/packages/rpms/index.html)
+    + Rédigé par [Daniell Toth](https://scholar.google.com/citations?user=1lUPZikAAAAJ)
+
+---
+
+### L’estimateur par arbre de régression
+
+### Calibrage
+
+Possibilité de linéariser les arbres :
+
+`$$\hat{m}({\bf x}) = \tilde{\mu}_{n1}  I({\bf x} \in B_{n1}) + \tilde{\mu}_{n2} I({\bf x} \in B_{n2}) + \ldots + \tilde{\mu}_{nq}  I({\bf x} \in B_{nq})$$`
+
+--
+
+
+* l’arbre de régression est .orange2[calibré] en fonction des chiffres de population du nœud d'extrémité :
+
+`$$\sum_{j \in U} I({ \bf x}_j \in B_{nk}) =   \sum_{j \in s} \tilde{w}_j I({ \bf x}_j \in B_{nk})$$`
+
+
+----   
+
+--
+
+
+#### Post-stratification
+
+* Estimateur par stratification a posteriori : Estimateur par la régression généralisée lorsque le modèle d'assistance est le modèle de la moyenne du groupe
+
+--
+
+* Estimateur par arbre de régression : Les nœuds d'extrémité de l’arbre forment un ensemble de poststrates .orange2[prédictives]!
+
+---
+
+###  Étude de cas 2 : [Bureau des statistiques du travail des États-Unis] (https://www.bls.gov/bls/blsmissn.htm)
+
+&gt; **Mission** : « Mesurer l'activité sur le marché du travail, les conditions de travail, l’évolution des prix et la production au sein de l’économie américaine afin de soutenir la prise de décisions dans les secteurs public et privé. »
+
+**Objectif** : Estimer le nombre total de certains types d’emplois.
+
+&lt;img src="img/bls_results.001.jpeg" width="90%" /&gt;
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+
+### Réflexions générales sur la sélection du modèle
+
+--
+
+#### Tenez compte de votre public.
+
+--
+
+#### Déterminez quelles données vous avez accès.
+
+--
+
+#### Multipliez les analyses exploratoires des données.
+
+--
+
+
+#### Analysez les poids de sondage obtenus.
+
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+## Questions?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

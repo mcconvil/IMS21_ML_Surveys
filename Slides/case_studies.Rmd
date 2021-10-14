@@ -385,7 +385,7 @@ knitr::include_graphics("img/bls2.png")
 
 --
 
-* The industry code is likely important and most bartenders probably only fall into a few of the industries.
+* The industry code is likely important and most job types probably only fall into a few of the industries.
 
 --
 

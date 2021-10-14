@@ -92,7 +92,7 @@ background-color: #e9ecef
 
 <span style="color: #E6AC27;">10:50 am - 11:00 am ET</span> -- [Break](https://www.theguardian.com/society/video/2020/apr/24/five-easy-stretches-to-keep-you-going-when-working-from-home-video)
 
-<span style="color: #E6AC27;">10:00 am - 11:45 am ET</span> -- [Deep Dive into the Estimator](https://mcconvil.github.io/IMS21_ML_Surveys/estimator_deep_dive.html)
+<span style="color: #E6AC27;">11:00 am - 11:45 am ET</span> -- [Deep Dive into the Estimator](https://mcconvil.github.io/IMS21_ML_Surveys/estimator_deep_dive.html)
 
 <span style="color: #E6AC27;">11:45 am - 12:15 pm ET</span> -- [Lunch](https://www.theguardian.com/food/2021/apr/17/yotam-ottolenghi-15-minute-lunches-recipes)
 

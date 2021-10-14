@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Deep Dive into the Generalized Regression Estimator</title>
+    <meta charset="utf-8" />
+    <script src="libsSlides/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libsSlides/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="cssSlides/styling.css" type="text/css" />
+    <link rel="stylesheet" href="cssSlides/fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+class: center, middle, hide_logo
+background-image: url("img/louis-philippe-poitras-W-vPMF3vUK0-unsplash.jpg")
+background-position: left
+background-size: contain
+background-color: #e9ecef
+
+
+&lt;style&gt;
+.orange2 {color: #AB505E;}
+&lt;/style&gt;
+
+&lt;!-- Cite: https://unsplash.com/photos/W-vPMF3vUK0 --&gt;
+
+
+&lt;!-- Add new picture: Equations! --&gt;
+
+
+.pull-right[
+
+## Plongée au cœur de l’estimateur par la régression généralisée
+
+
+#### Une approche de la science des données pour l'estimation des statistiques officielles : Exploiter le pouvoir des modèles d'apprentissage automatique
+
+#### Symposium international sur les questions de méthodologie de 2021
+
+#### Kelly McConville
+
+#### 14 octobre 2021
+
+
+]
+
+
+---
+
+class: center
+
+### Estimation par sondage assistée par modèle
+
+
+
+#### **But** : Estimer les chiffres d’une population finie, tels que des moyennes et des totaux.
+
+
+
+#### Données requises :
+
+
+
+&lt;img src="img/data_needs2.004.jpeg" width="1402" /&gt;
+
+---
+
+class: center
+
+### Estimateur assisté par modèle
+
+Estimateur par la régression généralisée :  
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+
+
+&lt;img src="img/all_data.jpeg" width="1489" /&gt;
+
+
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+### Mais, qu'en est-il des propriétés statistiques de l’estimateur?
+
+--
+
+### Et de la forme du modèle sur lequel il repose `\(\hat{m}(\cdot)\)`? 
+
+--
+
+### L’estimateur est-il dénué de biais?
+
+--
+
+### Comment devrions-nous estimer la variance?
+
+---
+
+class: center
+
+### Estimateur de la différence
+
+
+
+Supposons que nous ayons une « méthode » permettant de prédire `\(y\)`, `\(m(\cdot)\)`, qui ne dépend pas de l’échantillon.
+
+&lt;img src="img/all_data.jpeg" width="1489" /&gt;
+
+--
+
+`$$\hat{t}_y = \sum_{i \in U} m(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - m(\boldsymbol{x_i})}{\pi_i}$$`
+
+---
+
+### Estimateur de la différence
+
+
+`$$\hat{t}_y = \sum_{i \in U} m(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - m(\boldsymbol{x_i})}{\pi_i}$$`
+
+
+--
+
+Le plan de sondage est-il dénué de biais :  `\(E(\hat{t}_y) = t_y\)`
+
+--
+
+A une formule simple de calcul de la variance :
+
+`$$\mbox{V}\left(\hat{t}_y\right) = \underset{i, j \in U}{\sum \sum} (\pi_{ij} - \pi_i \pi_j) \frac{\left(y_i - m(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - m(\boldsymbol{x}_j)\right)}{\pi_j}$$`
+
+où `\(\pi_{ij} = P(i, j \in s)\)`.
+
+
+--
+
+Qui a un estimateur sans biais sous le plan :
+
+`$$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - m(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - m(\boldsymbol{x}_j)\right)}{\pi_j}$$`
+
+&lt;!-- Discutez de l’estimateur de la différence et de son estimateur de la variance. Sans biais. --&gt;
+
+&lt;!-- Motivation pour l’estimateur de la variance de l'estimateur par la régression généralisée. --&gt;
+
+&lt;!-- Fournir la formule habituelle.  Mises en garde.  Bootstrap. --&gt;
+
+---
+
+### Estimateur de la différence
+
+
+`$$\hat{t}_y = \sum_{i \in U} m(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - m(\boldsymbol{x_i})}{\pi_i}$$`
+
+
+
+Et, encore mieux, dans des conditions modérées, il est asymptotiquement normal!
+
+--
+
+
+
+&lt;img src="estimator_deep_dive_files/figure-html/unnamed-chunk-4-1.gif" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Estimateur de la différence
+
+
+`$$\hat{t}_y = \sum_{i \in U} m(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - m(\boldsymbol{x_i})}{\pi_i}$$`
+
+
+
+Mais, il est rare que `\(m(\cdot)\)` soit connu, de sorte que nous devons l'estimer en fonction de l’échantillon : `\(\hat{m}(\cdot)\)`, ayant pour résultat…
+
+--
+
+### Estimateur par la régression généralisée
+
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+
+---
+
+### L’estimateur par la régression généralisée
+
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+assisté par modèle :
+
+$$
+y = m(\boldsymbol{x}) + \epsilon
+$$
+
+&lt;img src="img/model_fits.jpeg" width="1484" /&gt;
+
+
+---
+
+### L’estimateur par la régression généralisée
+
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+
+--
+
+Également connu comme .orange2[l’estimateur par la différence empirique] et .orange2[l’estimateur assisté par modèle]
+
+--
+
+est .orange2[asymptotically] sans biais : `\(E(\hat{t}_y) \rightarrow t_y\)`
+
+--
+
+Pas d'expression de la variance exacte du plan de sondage
+
+--
+
+La variance estimée est fondée sur la formule tirée de l’estimateur de la différence :
+
+`$$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - \hat{m}(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - \hat{m}(\boldsymbol{x}_j)\right)}{\pi_j}$$`
+
+
+
+
+---
+
+### Le modèle d'assistance
+
+De nombreux modèles d'assistance ont été considérés!
+
+--
+
+La liste non exhaustive comprend :
+
+* Régression linéaire (Cassel, Sarndal et Wretman 1976)
+
+* Régression logistique (Lehtonen et Veijanen 1998)
+
+* Régression polynomiale locale (Breidt et Opsomer 2000; Montanari et Ranalli 2005)
+
+* Splines pénalisés (Breidt, Claeskens et Opsomer 2005; McConville et Breidt 2013)
+
+* Splines de régression (Goga 2005)
+
+* Réseaux neuronaux (Montanari et Ranalli 2005)
+
+* Régression pénalisée/par le LASSO (McConville et coll. 2017)
+
+* Arbres de régression (McConville et Toth 2020)
+
+---
+
+### L’estimateur par la régression généralisée
+
+
+`$$\hat{t}_y = \sum_{i \in U} \hat{m}(\boldsymbol{x_i}) + \sum_{i \in s} \frac{y_i - \hat{m}(\boldsymbol{x_i})}{\pi_i}$$`
+Commencer par le modèle d'assistance fondé sur la régression linéaire :
+
+--
+
+`\begin{align*}
+y_i &amp; = m(\boldsymbol{x}_i) + \epsilon_i\\
+&amp;= \beta_o + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \epsilon_i \\
+&amp; = \boldsymbol{x}_i^T \boldsymbol{\beta} + \epsilon_i
+\end{align*}`
+
+où `\(\epsilon_i \sim (0, \sigma^2)\)`.
+
+---
+
+### L’estimateur par la régression généralisée
+
+Alors 
+
+`$$\hat{t}_y = \sum_{i \in U} \boldsymbol{x}_i^T \hat{\boldsymbol{\beta}} + \sum_{i \in s} \frac{y_i - \boldsymbol{x}_i^T \hat{\boldsymbol{\beta}}}{\pi_i}$$`
+
+avec
+
+`\begin{align*}
+\boldsymbol{\hat{\beta}} &amp;= \underset{\boldsymbol{\beta}}{\arg\min} \sum_{i \in s} \frac{(y_i - \boldsymbol{x}_i^T \boldsymbol{\beta})^2}{ \pi_i} 
+\end{align*}`
+
+--
+
+Cas spéciaux :
+
+
+--
+
+* Estimateur par stratification a posteriori : Variable explicative catégorique simple
+
+--
+
+* Estimateur par le ratio : Variable quantitative simple avec régression jusqu’à l’origine
+
+---
+
+### L’estimateur par la régression généralisée
+
+Dans le cadre du modèle linéaire, peut être exprimé comme suit :
+
+`\begin{align*}
+\hat{t}_{y} =  \sum_{i \in s} \left[1 +  \left(\sum_{j \in U} \boldsymbol{x}_j - \sum_{j \in s} \frac{\boldsymbol{x}_j}{\pi_j}\right)^{T} \left( \sum_{j \in s} \frac{\boldsymbol{x}_j \boldsymbol{x}_j^{T}}{\pi_j} \right)^{-1} \boldsymbol{x}_i \right] \frac{y_i}{\pi_i} = \sum_{i \in s} w_i y_i
+\end{align*}`
+
+--
+
+Poids de sondage, `\(w_i\)`'s, .orange2[ne dépend pas] de `\(y_i\)`'s!
+
+--
+
+&amp;rarr; Possibilité d’appliquer les poids à de nombreuses variables réponses différentes!
+
+--
+
+L’estimateur est également .mauve[calibré] en fonction des données auxiliaires :
+
+`\begin{align*}
+\sum_{i \in s} w_i \boldsymbol{x}_i = \sum_{i \in U} \boldsymbol{x}_i
+\end{align*}`
+
+---
+
+### L’estimateur par la régression généralisée
+
+Problèmes liés au modèle d'assistance linéaire :
+
+--
+
+* Peut produire des pondérations très variables
+
+--
+
+* Peut même produire des pondérations négatives
+
+--
+
+* Dans le cas des modèles dont les spécifications sont erronées, ne permet pas vraiment (voire pas du tout ) d'améliorer la précision
+
+
+---
+
+### Le modèle d'assistance
+
+Comment faire pour déterminer .mauve[quel] modèle d'assistance utiliser?
+
+--
+
+Rappelez-vous que l’estimateur assisté par modèle est asymptotiquement sans biais
+
+--
+
+* Pour un large éventail de modèles d’assistance
+
+--
+
+* Indépendamment de la question de savoir si le modèle d'assistance est correct
+
+--
+
+MAIS la .orange2[précision] de l'estimateur dépend de la qualité prédictive du modèle!
+
+
+`$$\hat{\mbox{V}}\left(\hat{t}_y\right) = \underset{i, j \in s}{\sum \sum} \frac{(\pi_{ij} - \pi_i \pi_j)}{\pi_{ij}} \frac{\left(y_i - \hat{m}(\boldsymbol{x}_i)\right)}{\pi_i}\frac{\left(y_j - \hat{m}(\boldsymbol{x}_j)\right)}{\pi_j}$$`
+---
+
+class: center, middle
+background-color: #CFF09E
+
+# À venir : 
+
+--
+
+### Retour sur les études de cas du FIA et du BLS et examen des modèles d’assistance appropriés
+
+--
+
+### Exercice d’adaptation d’estimateurs par la régression généralisée en `R`!
+
+---
+
+class: center, middle
+background-color: #CFF09E
+
+Des questions?
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Prochaine diapo : --&gt;
+
+&lt;!-- Tiré de la démonstration `ESAM` + poursuite de la discussion sur l’étape de la vérification du modèle! --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
